@@ -3105,3 +3105,20 @@ blockquote:before,
 		top: 110%;
 	}
 }
+
+.centered-div {
+text-align: center;
+margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.4); /* White with 80% transparency */
+    color: #000; /* Text color (black in this example) */
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
