@@ -1,9 +1,67 @@
-ts<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Professional Portfolio</title>
-    <link rel="stylesheet" href="portfolio.css"> <!-- Link to the same external CSS file as used for Personal.html -->
+    <link rel="stylesheet" href="portfolio.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            padding: 50px 0;
+            background: #333;
+            color: #fff;
+        }
+        .portfolio {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .repository-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .repository-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            width: 300px;
+        }
+        .repository-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+        .repository-card h3 {
+            margin-top: 0;
+        }
+        .repository-card a {
+            text-decoration: none;
+            color: #0073e6;
+        }
+        .repository-card a:hover {
+            text-decoration: underline;
+        }
+        .card-color-1 { background: rgba(255, 255, 255, 0.9); }
+        .card-color-2 { background: rgba(224, 247, 250, 0.9); }
+        .card-color-3 { background: rgba(255, 249, 196, 0.9); }
+        .card-color-4 { background: rgba(255, 236, 179, 0.9); }
+        .card-color-5 { background: rgba(225, 190, 231, 0.9); }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -11,25 +69,43 @@ ts<!DOCTYPE html>
     </div>
 
     <div class="portfolio">
-        <!-- GitHub Repositories -->
-        <h2>My Project Repositories</h2>
-        <div class="repository-list">
-            <div class="repository-item">
-                <a href="https://github.com/utkrishtsharma/pizza_web_app" target="_blank">pizza_web_app</a>
-            </div>
-            <div class="repository-item">
-                <a href="https://github.com/utkrishtsharma/pizza_website" target="_blank">pizza_website</a>
-            </div>
-            <div class="repository-item">
-                <a href="https://github.com/utkrishtsharma/SF_foodtruck_generator" target="_blank">SF_foodtruck_generator</a>
-            </div>
-            <div class="repository-item">
-                <a href="https://github.com/utkrishtsharma/DOORDASH_API_INTEGRATION" target="_blank">DOORDASH_API_INTEGRATION</a>
-            </div>
-            <div class="repository-item">
-                <a href="https://github.com/utkrishtsharma/Resume-Matcher" target="_blank">Resume-Matcher</a>
-            </div>
+        <h2>My GitHub Repositories</h2>
+        <div class="repository-list" id="repository-list">
+            <!-- Repositories will be dynamically inserted here -->
         </div>
     </div>
+
+    <script>
+        async function fetchRepositories() {
+            const username = 'utkrishtsharma';
+            const url = `https://api.github.com/users/${username}/repos`;
+
+            try {
+                const response = await fetch(url);
+                const repos = await response.json();
+
+                const repoList = document.getElementById('repository-list');
+                let colorIndex = 1;
+
+                repos.forEach(repo => {
+                    const repoCard = document.createElement('div');
+                    repoCard.className = `repository-card card-color-${colorIndex}`;
+                    colorIndex = (colorIndex % 5) + 1;
+
+                    repoCard.innerHTML = `
+                        <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                        <p>${repo.description || ''}</p>
+                        <p><strong>Language:</strong> ${repo.language || 'N/A'}</p>
+                        <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
+                    `;
+                    repoList.appendChild(repoCard);
+                });
+            } catch (error) {
+                console.error('Error fetching repositories:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchRepositories);
+    </script>
 </body>
 </html>
