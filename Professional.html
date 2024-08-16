@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Portfolio</title>
+    <title>Professional Experience</title>
     <link rel="stylesheet" href="portfolio.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background: #f0f0f0;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
         .header {
             text-align: center;
@@ -17,102 +17,183 @@
             background: #333;
             color: #fff;
         }
-        .portfolio {
-            padding: 20px;
+        .experience-section {
             max-width: 1200px;
             margin: 0 auto;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
-        }
-        .repository-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .repository-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10%;
             padding: 20px;
-            margin: 15px;
+            background: #fff;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            width: 300px;
-            text-align: center;
+            border-radius: 10px;
         }
-        .repository-card:hover {
+        .experience-title {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        .company-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background: #f9f9f9;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .company-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 1);
         }
-        .repository-card h3 {
+        .company-logo {
+            flex: 1;
+            padding-right: 20px;
+        }
+        .company-logo img {
+            max-width: 100%;
+            border-radius: 10%;
+        }
+        .company-details {
+            flex: 3;
+            color: #333;
+        }
+        .company-details h3 {
             margin-top: 0;
-            font-size: 1.2em;
-            color: black;
+            color: #444;
+            font-size: 1.5em;
         }
-        .repository-card p {
-            font-size: 0.9em;
-            color: black;
+        .company-details p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #666;
         }
-        .repository-card a {
-            text-decoration: none;
-            color: black;
+        .achievements {
+            margin-top: 15px;
+            padding-left: 20px;
+            list-style-type: disc;
         }
-        .repository-card a:hover {
-            text-decoration: underline;
+        .achievements li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #555;
         }
-        .card-color-1 { background: rgba(255, 255, 25, 0.6); }
-        .card-color-2 { background: rgba(224, 247, 203, 0.7); }
-        .card-color-3 { background: rgba(255, 249, 165, 0.8); }
-        .card-color-4 { background: rgba(255, 236, 194, 0.6); }
-        .card-color-5 { background: rgba(225, 190, 216, 0.5); }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Professional Portfolio</h1>
-    </div>
 
-    <div class="portfolio">
-        <h2>My Project's GitHub Repositories</h2>
-        <div class="repository-list" id="repository-list">
-            <!-- Repositories will be dynamically inserted here -->
+<div class="header">
+    <h1>Professional Portfolio</h1>
+</div>
+
+<div class="experience-section">
+    <div class="experience-title">Professional Experience</div>
+
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="energy_domain_logo.png" alt="Energy Domain LLC">
+        </div>
+        <div class="company-details">
+            <h3>Energy Domain LLC | Senior Full Stack Developer | Remote, Texas</h3>
+            <p>July 2023 - Current</p>
+            <ul class="achievements">
+                <li>Automated ETL pipelining with 4000+ LOC scripts and wrote queries for a vast database of OIL/GAS Wells across the United States. Maintained the Marketplace frontend platform and Backend Data platform, including UI/CLI integration on AWS using Python, Node.js, React, Django, PostgreSQL, ArcGIS.</li>
+                <li>Integrated ArcGIS maps for 2.5 million OIL/GAS wells on the marketplace with enhanced visualization.</li>
+                <li>Optimized SQL queries, reducing data conversion time from 18 seconds to just 1.5 seconds. Successfully integrated 2 BOTs, one to generate 20,000 direct business leads, another to estimate profit Type curve on the website's main Dashboard.</li>
+            </ul>
         </div>
     </div>
 
-    <script>
-        async function fetchRepositories() {
-            const username = 'utkrishtsharma';
-            const url = `https://api.github.com/users/${username}/repos`;
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="cybercoders_logo.png" alt="CyberCoders">
+        </div>
+        <div class="company-details">
+            <h3>CyberCoders | Staff Software Engineer | San Francisco, CA</h3>
+            <p>Aug 2022 – Jan 2023</p>
+            <ul class="achievements">
+                <li>Led a team of 4 engineers on the technical implementation of a web-based platform for a healthcare client, enabling real-time patient data management and collaboration among healthcare providers.</li>
+                <li>Created an enterprise-level CRM system for a financial services company. Technologies Used: Node.js, MongoDB, React.js, Java, Spring, PostgreSQL.</li>
+                <li>Improved healthcare provider productivity and real-time collaboration by 30% through the healthcare platform. Increased overall productivity by 2.5% with the enterprise CRM system for Wells Fargo.</li>
+            </ul>
+        </div>
+    </div>
 
-            try {
-                const response = await fetch(url);
-                const repos = await response.json();
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="peter_moss_logo.png" alt="Peter Moss Leukaemia MedTech Research CIC">
+        </div>
+        <div class="company-details">
+            <h3>Peter Moss Leukaemia MedTech Research CIC | AI Researcher | Remote</h3>
+            <p>April 2022 – Jan 2023</p>
+            <ul class="achievements">
+                <li>Worked on automating the healthcare/medical industry to reduce treatment costs for patients. Utilized XDNN (Deep Convolutional Neural Networks) for SARS-COV-2 identification in patients' CT scans.</li>
+                <li>Achieved 92.7% accuracy for Cancer Prediction with the VGG16 model. Designed and implemented a "Hospital Intelligent Automation System" featuring an autonomous robot swarm that mitigates COVID spread by replacing hospital staff.</li>
+            </ul>
+        </div>
+    </div>
 
-                const repoList = document.getElementById('repository-list');
-                let colorIndex = 1;
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="acm_logo.png" alt="ACM, Association for Computing Machinery">
+        </div>
+        <div class="company-details">
+            <h3>ACM, Association for Computing Machinery | Hackathon Team Lead | San Francisco, CA</h3>
+            <p>July 2021 – Dec 2022</p>
+            <ul class="achievements">
+                <li>Orchestrated successful hackathon events, managing logistics, inspiring innovation, and mentoring students to foster tech leadership.</li>
+                <li>Coordinated with sponsors, recruited participants, and provided technical support using tools like JIRA and Google Cloud Platform and Heroku to Deploy 20+ Startups in Bay Area Related to Health, Crime, Education etc.</li>
+                <li>Led the team to victory in the October 2022 DevPost hackathon and secured runner-up position in the Hacker Earth AI Genesis competition 2022.</li>
+            </ul>
+        </div>
+    </div>
 
-                repos.forEach(repo => {
-                    const repoCard = document.createElement('div');
-                    repoCard.className = `repository-card card-color-${colorIndex}`;
-                    colorIndex = (colorIndex % 5) + 1;
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="ey_logo.png" alt="Ernst & Young">
+        </div>
+        <div class="company-details">
+            <h3>Ernst & Young | Software Automation Engineer | Gurugram, India</h3>
+            <p>March 2020 – Nov 2020</p>
+            <ul class="achievements">
+                <li>Played a pivotal role in the digital transformation of global trade processes. Designed and implemented sophisticated data models using Ruby on Rails to represent various aspects of the trade industry utilized Python scripting, Node.js, AWS to Develop autonomous Python scripts capable of analyzing extensive Yearly/Monthly transcripts, each containing over 20,000 Transcribed reports/results, streamlined data processing and analysis.</li>
+                <li>Automated customer reporting system for account management team by developing internal SQL query generating tool using Python, SQL, Hive, and Scala, saving the company ~$90,000 annually.</li>
+                <li>Worked on an Audio Mining Speech Analytics System powered by AI/ML, including CNN models for semantic and sentiment analysis.</li>
+            </ul>
+        </div>
+    </div>
 
-                    repoCard.innerHTML = `
-                        <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-                        <p>${repo.description || ''}</p>
-                        <p><strong>Language:</strong> ${repo.language || 'N/A'}</p>
-                        <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
-                    `;
-                    repoList.appendChild(repoCard);
-                });
-            } catch (error) {
-                console.error('Error fetching repositories:', error);
-            }
-        }
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="yactraq_logo.png" alt="Yactraq Online Inc">
+        </div>
+        <div class="company-details">
+            <h3>Yactraq Online Inc | Full Stack Software Engineer | Remote, Canada</h3>
+            <p>Dec 2019 – Mar 2020</p>
+            <ul class="achievements">
+                <li>Successfully secured a 20% raise on the base salary for outstanding performance in the first month. Created the Emotion Detection module, which has become a core asset for the company.</li>
+                <li>Independently developed a "Text to Emotion Detection" module using NLTK and machine learning techniques during weekends in my free time.</li>
+                <li>Productionized a service for automating the configuration of Google Cloud app monitoring. Integrated various APIs for alerting, monitoring, and data pipelining in Jenkins and Python using: MEAN stack (MongoDB, Express, Angular, and Node.js), Docker, Microservices, Kubernetes.</li>
+            </ul>
+        </div>
+    </div>
 
-        document.addEventListener('DOMContentLoaded', fetchRepositories);
-    </script>
+    <div class="company-card">
+        <div class="company-logo">
+            <img src="aerogram_logo.png" alt="Aerogram (IIT)">
+        </div>
+        <div class="company-details">
+            <h3>Aerogram (IIT) | Data Science Engineer | Delhi, India</h3>
+            <p>Dec 2019 – Mar 2020</p>
+            <ul class="achievements">
+                <li>Contributed to a startup specializing in city-scale Air Pollution Monitors for individual exposure tracking and forecasting the future pollution data, utilizing Python, R Studios, Anaconda, RabbitMQ, and Machine Learning.</li>
+                <li>Achieved 95% accuracy in sensor value prediction using mathematical models between different sensors, resulting in a remarkable 95% reduction in data storage requirements.</li>
+                <li>Optimized circuit design for a 20% performance boost, enhancing overall system efficiency.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
