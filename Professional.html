@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Experience</title>
+    <title>Professional Portfolio</title>
     <link rel="stylesheet" href="portfolio.css">
     <style>
         body {
@@ -24,6 +24,7 @@
             background: #fff;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            margin-bottom: 50px;
         }
         .experience-title {
             text-align: center;
@@ -78,6 +79,57 @@
             font-size: 0.95em;
             color: #555;
         }
+        .portfolio {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .repository-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .repository-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10%;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            width: 300px;
+            text-align: center;
+        }
+        .repository-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+        .repository-card h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: black;
+        }
+        .repository-card p {
+            font-size: 0.9em;
+            color: black;
+        }
+        .repository-card a {
+            text-decoration: none;
+            color: black;
+        }
+        .repository-card a:hover {
+            text-decoration: underline;
+        }
+        .card-color-1 { background: rgba(255, 255, 25, 0.6); }
+        .card-color-2 { background: rgba(224, 247, 203, 0.7); }
+        .card-color-3 { background: rgba(255, 249, 165, 0.8); }
+        .card-color-4 { background: rgba(255, 236, 194, 0.6); }
+        .card-color-5 { background: rgba(225, 190, 216, 0.5); }
     </style>
 </head>
 <body>
@@ -194,6 +246,46 @@
     </div>
 
 </div>
+
+<div class="portfolio">
+    <h2>My Project's GitHub Repositories</h2>
+    <div class="repository-list" id="repository-list">
+        <!-- Repositories will be dynamically inserted here -->
+    </div>
+</div>
+
+<script>
+    async function fetchRepositories() {
+        const username = 'utkrishtsharma';
+        const url = `https://api.github.com/users/${username}/repos`;
+
+        try {
+            const response = await fetch(url);
+            const repos = await response.json();
+
+            const repoList = document.getElementById('repository-list');
+            let colorIndex = 1;
+
+            repos.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.className = `repository-card card-color-${colorIndex}`;
+                colorIndex = (colorIndex % 5) + 1;
+
+                repoCard.innerHTML = `
+                    <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                    <p>${repo.description || ''}</p>
+                    <p><strong>Language:</strong> ${repo.language || 'N/A'}</p>
+                    <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
+                `;
+                repoList.appendChild(repoCard);
+            });
+        } catch (error) {
+            console.error('Error fetching repositories:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchRepositories);
+</script>
 
 </body>
 </html>
