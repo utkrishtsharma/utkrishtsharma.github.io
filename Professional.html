@@ -36,7 +36,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            background: #f9f9f9;
+            background: #dcdcdc;
             margin-bottom: 30px;
             padding: 20px;
             border-radius: 10px;
@@ -136,6 +136,12 @@
 
 <div class="header">
     <h1>Professional Portfolio</h1>
+</div>
+<div class="portfolio">
+    <h2>My Project's GitHub Repositories</h2>
+    <div class="repository-list" id="repository-list">
+        <!-- Repositories will be dynamically inserted here -->
+    </div>
 </div>
 
 <div class="experience-section">
@@ -247,12 +253,7 @@
 
 </div>
 
-<div class="portfolio">
-    <h2>My Project's GitHub Repositories</h2>
-    <div class="repository-list" id="repository-list">
-        <!-- Repositories will be dynamically inserted here -->
-    </div>
-</div>
+
 
 <script>
     async function fetchRepositories() {
