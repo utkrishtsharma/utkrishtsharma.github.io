@@ -2,182 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Portfolio</title>
-    <link rel="stylesheet" href="portfolio.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utkrish Sharma - Space Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+            background: #000 url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
             margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
         .header {
             text-align: center;
-            padding: 50px 0;
-            background: #333;
-            color: #fff;
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.7);
         }
-        .experience-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            margin-bottom: 50px;
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 10px #00ffff;
         }
-        .experience-title {
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
             text-align: center;
             font-size: 2em;
-            color: #333;
-            margin-bottom: 40px;
-        }
-        .company-card {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background: #dcdcdc;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .company-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-        }
-        .company-logo {
-            flex: 1;
-            padding-right: 20px;
-        }
-        .company-logo img {
-            max-width: 100%;
-            border-radius: 10%;
-        }
-        .company-details {
-            flex: 3;
-            color: #333;
-        }
-        .company-details h3 {
-            margin-top: 0;
-            color: #444;
-            font-size: 1.5em;
-        }
-        .company-details p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #666;
-        }
-        .achievements {
-            margin-top: 15px;
-            padding-left: 20px;
-            list-style-type: disc;
-        }
-        .achievements li {
-            margin-bottom: 10px;
-            font-size: 0.95em;
-            color: #555;
-        }
-        .portfolio {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
+            margin: 50px 0 30px;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
         }
         .repository-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
         .repository-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
             padding: 20px;
-            margin: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            width: 300px;
-            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .repository-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 1);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px #00ffff;
         }
         .repository-card h3 {
             margin-top: 0;
             font-size: 1.2em;
-            color: black;
-        }
-        .repository-card p {
-            font-size: 0.9em;
-            color: black;
+            color: #00ffff;
         }
         .repository-card a {
+            color: #00ffff;
             text-decoration: none;
-            color: black;
         }
         .repository-card a:hover {
             text-decoration: underline;
         }
-        .card-color-1 { background: rgba(255, 255, 25, 0.6); }
-        .card-color-2 { background: rgba(224, 247, 203, 0.7); }
-        .card-color-3 { background: rgba(255, 249, 165, 0.8); }
-        .card-color-4 { background: rgba(255, 236, 194, 0.6); }
-        .card-color-5 { background: rgba(225, 190, 216, 0.5); }
+        .company-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px #00ffff;
+        }
+        .company-card h3 {
+            color: #00ffff;
+            margin-top: 0;
+        }
+        .achievements {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .achievements li:before {
+            content: '➤ ';
+            color: #00ffff;
+        }
+        @media (max-width: 768px) {
+            .repository-list {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <header class="header">
+        <h1>Utkrish Sharma</h1>
+        <p>Senior Full Stack Developer | AI Enthusiast</p>
+    </header>
 
-<div class="header">
-    <h1>Professional Portfolio</h1>
-</div>
-<div class="portfolio">
-    <h2>My Project's GitHub Repositories</h2>
-    <div class="repository-list" id="repository-list">
-        <!-- Repositories will be dynamically inserted here -->
-    </div>
-</div>
+    <main class="container">
+        <section>
+            <h2 class="section-title">GitHub Repositories</h2>
+            <div class="repository-list" id="repository-list">
+                <!-- Repositories will be dynamically inserted here -->
+            </div>
+        </section>
 
-<div class="experience-section">
-    <div class="experience-title">Professional Experience</div>
+        <section>
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="company-card">
+                <h3>Energy Domain LLC | Senior Full Stack Developer</h3>
+                <p>July 2023 - Current | Remote, Texas</p>
+                <ul class="achievements">
+                    <li>Automated ETL pipelining with 4000+ LOC scripts for OIL/GAS Wells database.</li>
+                    <li>Integrated ArcGIS maps for 2.5 million wells with enhanced visualization.</li>
+                    <li>Optimized SQL queries, reducing data conversion time from 18 seconds to 1.5 seconds.</li>
+                </ul>
+            </div>
 
-    <div class="company-card">
-        <div class="company-logo">
-            <img src="energy_domain_logo.png" alt="Energy Domain LLC">
-        </div>
-        <div class="company-details">
-            <h3>Energy Domain LLC | Senior Full Stack Developer | Remote, Texas</h3>
-            <p>July 2023 - Current</p>
-            <ul class="achievements">
-                <li>Automated ETL pipelining with 4000+ LOC scripts and wrote queries for a vast database of OIL/GAS Wells across the United States. Maintained the Marketplace frontend platform and Backend Data platform, including UI/CLI integration on AWS using Python, Node.js, React, Django, PostgreSQL, ArcGIS.</li>
-                <li>Integrated ArcGIS maps for 2.5 million OIL/GAS wells on the marketplace with enhanced visualization.</li>
-                <li>Optimized SQL queries, reducing data conversion time from 18 seconds to just 1.5 seconds. Successfully integrated 2 BOTs, one to generate 20,000 direct business leads, another to estimate profit Type curve on the website's main Dashboard.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="company-card">
-        <div class="company-logo">
-            <img src="cybercoders_logo.png" alt="CyberCoders">
-        </div>
-        <div class="company-details">
-            <h3>CyberCoders | Staff Software Engineer | San Francisco, CA</h3>
-            <p>Aug 2022 – Jan 2023</p>
-            <ul class="achievements">
-                <li>Led a team of 4 engineers on the technical implementation of a web-based platform for a healthcare client, enabling real-time patient data management and collaboration among healthcare providers.</li>
-                <li>Created an enterprise-level CRM system for a financial services company. Technologies Used: Node.js, MongoDB, React.js, Java, Spring, PostgreSQL.</li>
-                <li>Improved healthcare provider productivity and real-time collaboration by 30% through the healthcare platform. Increased overall productivity by 2.5% with the enterprise CRM system for Wells Fargo.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="company-card">
+            <div class="company-card">
+                <h3>CyberCoders | Staff Software Engineer</h3>
+                <p>Aug 2022 – Jan 2023 | San Francisco, CA</p>
+                <ul class="achievements">
+                    <li>Led a team of 4 engineers on a web-based healthcare platform.</li>
+                    <li>Created an enterprise-level CRM system for a financial services company.</li>
+                    <li>Improved healthcare provider productivity by 30% through the platform.</li>
+                </ul>
+            </div>
+             <div class="company-card">
         <div class="company-logo">
             <img src="peter_moss_logo.png" alt="Peter Moss Leukaemia MedTech Research CIC">
         </div>
@@ -251,42 +207,40 @@
         </div>
     </div>
 
-</div>
+            <!-- Add more company cards here -->
 
+        </section>
+    </main>
 
+    <script>
+        async function fetchRepositories() {
+            const username = 'utkrishtsharma';
+            const url = `https://api.github.com/users/${username}/repos`;
 
-<script>
-    async function fetchRepositories() {
-        const username = 'utkrishtsharma';
-        const url = `https://api.github.com/users/${username}/repos`;
+            try {
+                const response = await fetch(url);
+                const repos = await response.json();
 
-        try {
-            const response = await fetch(url);
-            const repos = await response.json();
+                const repoList = document.getElementById('repository-list');
 
-            const repoList = document.getElementById('repository-list');
-            let colorIndex = 1;
+                repos.forEach(repo => {
+                    const repoCard = document.createElement('div');
+                    repoCard.className = 'repository-card';
 
-            repos.forEach(repo => {
-                const repoCard = document.createElement('div');
-                repoCard.className = `repository-card card-color-${colorIndex}`;
-                colorIndex = (colorIndex % 5) + 1;
-
-                repoCard.innerHTML = `
-                    <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-                    <p>${repo.description || ''}</p>
-                    <p><strong>Language:</strong> ${repo.language || 'N/A'}</p>
-                    <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
-                `;
-                repoList.appendChild(repoCard);
-            });
-        } catch (error) {
-            console.error('Error fetching repositories:', error);
+                    repoCard.innerHTML = `
+                        <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                        <p>${repo.description || 'No description available.'}</p>
+                        <p><strong>Language:</strong> ${repo.language || 'N/A'}</p>
+                        <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
+                    `;
+                    repoList.appendChild(repoCard);
+                });
+            } catch (error) {
+                console.error('Error fetching repositories:', error);
+            }
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', fetchRepositories);
-</script>
-
+        document.addEventListener('DOMContentLoaded', fetchRepositories);
+    </script>
 </body>
 </html>
