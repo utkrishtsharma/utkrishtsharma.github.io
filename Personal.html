@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title>Personal Portfolio</title>
     <link rel="stylesheet" href="portfolio.css"> <!-- Link to an external CSS file -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -11,7 +26,38 @@
     </div>
 
     <div class="portfolio">
-        <!-- Your personal portfolio content goes here -->
+        <h2>Project Status Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Link</th>
+                    <th>Status</th>
+                    <th>Date Started</th>
+                    <th>Date Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://example.com/project1">einestine paper</a></td>
+                    <td>In Progress</td>
+                    <td>2024-01-15</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td><a href="https://example.com/project2">bells paper</a></td>
+                    <td>Completed</td>
+                    <td>2023-05-10</td>
+                    <td>2023-08-20</td>
+                </tr>
+                <tr>
+                    <td><a href="https://example.com/project3">Project 3</a></td>
+                    <td>Not Started</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
+
