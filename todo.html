@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>todo.html</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+    #app {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 600px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #4a90e2;
+      color: white;
+    }
+    .btn {
+      background: #4a90e2;
+      border: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 5px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #357ab8; }
+    #story {
+      background: #4a90e2;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    input[type="text"], input[type="date"] {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .complete { text-decoration: line-through; color: #999; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="story">Welcome, Hero! Ready to conquer your tasks?</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Start</th>
+          <th>End</th>
+          <th>Task</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tasks"></tbody>
+    </table>
+    <div style="display: flex; gap:8px; justify-content:center;">
+      <input type="date" id="start" />
+      <input type="date" id="end" />
+      <input type="text" id="text" placeholder="New Task..." />
+      <button class="btn" id="addBtn">Add</button>
+    </div>
+  </div>
+
+  <script>
+    const tasksEl = document.getElementById('tasks');
+    const storyEl = document.getElementById('story');
+    const startInput = document.getElementById('start');
+    const endInput = document.getElementById('end');
+    const textInput = document.getElementById('text');
+    const addBtn = document.getElementById('addBtn');
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
+
+    function save() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function render() {
+      tasksEl.innerHTML = '';
+      tasks.forEach((t, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${t.start||'-'}</td>
+          <td>${t.end||'-'}</td>
+          <td class="${t.done?'complete':''}">${t.text}</td>
+          <td>${t.done?'✅':'❌'}</td>
+          <td>
+            <button class="btn" onclick="toggle(${i})">${t.done?'Undo':'Done'}</button>
+            <button class="btn" onclick="remove(${i})" style="background:#e94e77;">Del</button>
+          </td>
+        `;
+        tasksEl.appendChild(tr);
+      });
+      const remaining = tasks.filter(t=>!t.done).length;
+      storyEl.textContent = `Hero's Journey: ${remaining} task${remaining!==1?'s':''} remaining`;
+      save();
+    }
+
+    window.toggle = i => { tasks[i].done = !tasks[i].done; render(); };
+    window.remove = i => { tasks.splice(i,1); render(); };
+    addBtn.onclick = () => {
+      if(!textInput.value) return;
+      tasks.push({ start: startInput.value, end: endInput.value, text: textInput.value, done: false });
+      startInput.value = endInput.value = textInput.value = '';
+      render();
+    };
+
+    render();
+  </script>
+</body>
+</html>
