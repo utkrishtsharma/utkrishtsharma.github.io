@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Milestones - Utkrisht Sharma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.6;
+            color: #2d2d2d;
+            background-color: #f8f8f8;
+            font-size: 14px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            color: #666666;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #f5f5f5;
+            color: #2d2d2d;
+        }
+
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2d2d2d;
+            background-color: #ffffff;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        .research-item {
+            margin-bottom: 2rem;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+        }
+
+        .research-item:hover {
+            background-color: #fafafa;
+        }
+
+        .research-header {
+            padding: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .research-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #2d2d2d;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .patent-badge {
+            background-color: #666666;
+        }
+
+        .award-badge {
+            background-color: #2d2d2d;
+        }
+
+        .research-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .research-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            color: #666666;
+        }
+
+        .meta-label {
+            color: #999999;
+        }
+
+        .research-content {
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .research-description {
+            color: #555555;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .research-highlights {
+            background-color: #f5f5f5;
+            border-left: 3px solid #2d2d2d;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .research-highlights h4 {
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .research-highlights ul {
+            color: #555555;
+            padding-left: 1.2rem;
+            list-style-type: square;
+        }
+
+        .research-highlights li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .research-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #2d2d2d;
+            background-color: transparent;
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: #2d2d2d;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
+
+        .citation-info {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-left: 3px solid #999999;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .citation-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 0.5rem;
+        }
+
+        .citation-details {
+            color: #666666;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666666;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 4rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .research-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .research-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">UTKRISHT SHARMA</a>
+            <a href="index.html" class="back-btn">← BACK TO HOME</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">RESEARCH MILESTONES</h1>
+
+            <!-- Patent -->
+            <div class="research-item">
+                <div class="research-header">
+                    <div class="research-badge patent-badge">[PATENT FILED]</div>
+                    <h2 class="research-title">DETECTION OF SOIL POLLUTION AND GARBAGE IN SOCIETY USING AI-BASED DRONE</h2>
+                    <div class="research-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">STATUS:</span> Patent Application Filed
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">OFFICE:</span> Indian Patent Office
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">DOMAIN:</span> AI/ML, Robotics, Environmental Tech
+                        </div>
+                    </div>
+                </div>
+                <div class="research-content">
+                    <p class="research-description">
+                        Innovative patent for an AI-powered autonomous drone system designed to detect and analyze soil pollution 
+                        and waste accumulation in urban environments. The system utilizes advanced computer vision, machine learning 
+                        algorithms, and environmental sensors to provide real-time monitoring and reporting capabilities for smart 
+                        city initiatives and environmental management.
+                    </p>
+                    <div class="research-highlights">
+                        <h4>KEY INNOVATIONS</h4>
+                        <ul>
+                            <li>AI-powered computer vision for real-time waste and pollution detection</li>
+                            <li>Autonomous flight path optimization for efficient area coverage</li>
+                            <li>Multi-sensor integration for comprehensive environmental monitoring</li>
+                            <li>Cloud-based data analytics and reporting dashboard</li>
+                            <li>Scalable system architecture for city-wide deployment</li>
+                            <li>Real-time GPS mapping and pollution hotspot identification</li>
+                        </ul>
+                    </div>
+                    <div class="research-actions">
+                        <a href="#" class="action-btn btn-primary">VIEW PATENT DETAILS</a>
+                        <a href="#" class="action-btn btn-secondary">TECHNICAL SPECIFICATIONS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Competition Win -->
+            <div class="research-item">
+                <div class="research-header">
+                    <div class="research-badge award-badge">[1ST POSITION WINNER]</div>
+                    <h2 class="research-title">AI ASSISTANT DRONE SWARM - INDIAN AIR FORCE COMPETITION</h2>
+                    <div class="research-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">EVENT:</span> Mehar Baba Swarm Drone Competition
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">DATE:</span> October 2019
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">ORGANIZER:</span> Indian Air Force
+                        </div>
+                    </div>
+                </div>
+                <div class="research-content">
+                    <p class="research-description">
+                        Developed and demonstrated an AI-assisted drone swarm system that secured first position in the prestigious 
+                        Indian Air Force Mehar Baba Swarm Drone Competition. The project showcased advanced swarm intelligence, 
+                        coordinated autonomous navigation, and real-time decision-making capabilities across multiple drone units.
+                    </p>
+                    <div class="research-highlights">
+                        <h4>PROJECT ACHIEVEMENTS</h4>
+                        <ul>
+                            <li>First position in national-level military drone competition</li>
+                            <li>Successfully demonstrated multi-drone coordination and swarm behavior</li>
+                            <li>Implemented AI-based obstacle avoidance and path planning</li>
+                            <li>Real-time communication and data sharing between drone units</li>
+                            <li>Robust performance under various environmental conditions</li>
+                            <li>Recognition from Indian Air Force for innovation in defense technology</li>
+                        </ul>
+                    </div>
+                    <div class="research-actions">
+                        <a href="#" class="action-btn btn-primary">PROJECT OVERVIEW</a>
+                        <a href="#" class="action-btn btn-secondary">COMPETITION DETAILS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Publication 1 -->
+            <div class="research-item">
+                <div class="research-header">
+                    <div class="research-badge">[RESEARCH PUBLICATION]</div>
+                    <h2 class="research-title">ADVANCED MACHINE LEARNING APPROACHES FOR ENVIRONMENTAL MONITORING</h2>
+                    <div class="research-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">JOURNAL:</span> International Journal for Scientific Research & Development
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">STATUS:</span> Published
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">DOMAIN:</span> Environmental Science, AI/ML
+                        </div>
+                    </div>
+                </div>
+                <div class="research-content">
+                    <div class="citation-info">
+                        <div class="citation-title">CITATION</div>
+                        <div class="citation-details">
+                            Sharma, U. (2019). "Advanced Machine Learning Approaches for Environmental Monitoring." 
+                            International Journal for Scientific Research & Development, Vol. X, Issue X, pp. XXX-XXX.
+                        </div>
+                    </div>
+                    <p class="research-description">
+                        This research paper explores novel machine learning methodologies for environmental monitoring applications, 
+                        with a focus on pollution detection and analysis. The study presents comprehensive approaches to sensor data 
+                        processing, pattern recognition, and predictive modeling for environmental health assessment.
+                    </p>
+                    <div class="research-highlights">
+                        <h4>RESEARCH CONTRIBUTIONS</h4>
+                        <ul>
+                            <li>Novel ML algorithms for real-time environmental data processing</li>
+                            <li>Comparative analysis of different machine learning approaches</li>
+                            <li>Integration of IoT sensors with predictive analytics</li>
+                            <li>Case studies on urban pollution
