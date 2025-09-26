@@ -1,469 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- SumitCoder -->
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<!-- Meta -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<!-- Title -->
-		<title>Utkrisht Sharma</title>
-		<!-- CSS Plugins -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utkrisht Sharma - Full Stack Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<style> img {border-radius: 50%; </style>
-        <link rel="stylesheet" href="css/plugins/bootstrap.min.css">
-        <link rel="stylesheet" href="css/plugins/font-awesome.css">
-		<link rel="stylesheet" href="css/plugins/magnific-popup.css">
-		<link rel="stylesheet" href="css/plugins/simplebar.css">
-		<link rel="stylesheet" href="css/plugins/owl.carousel.min.css">
-		<link rel="stylesheet" href="css/plugins/owl.theme.default.min.css">
-		<link rel="stylesheet" href="css/plugins/jquery.animatedheadline.css">
-		<!-- CSS Base -->
-        <link rel="stylesheet" class="back-color" href="css/style.css">
-		<!-- Settings Style -->
-		<link rel="stylesheet" class="posit-nav" href="css/settings/left-nav.css" />
-		<link rel="stylesheet" class="theme-color" href="css/settings/green-color.css" />
-		<link rel="stylesheet" class="box-st" href="css/settings/circle-box.css" />
-    </head>
-    <body>
-		<!-- Preloader -->
-		<div id="preloader">
-  			<div class="loading-area">
-    			<div class="circle"></div>
-  			</div>
-  			<div class="left-side"></div>
-  			<div class="right-side"></div>
-		</div>
-		<!-- Main Site -->
-		<div id="home">
-  		<div id="about">
-    	<div id="resume">
-		<div id="contact">
-			<div class="header-mobile">
-                <a class="header-toggle"><i class="fas fa-bars"></i></a>
-                <div>    <img src="11.png" alt="my headshot" width=30% height=30% border="5"> </div>
-                <h2>Utkrisht Sharma</h2>
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.6;
+            color: #2d2d2d;
+            background-color: #f8f8f8;
+            font-size: 14px;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d2d2d;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #666666;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: #2d2d2d;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d2d2d;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666666;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: #555555;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #2d2d2d;
+            background-color: transparent;
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #2d2d2d;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1px;
+            margin-bottom: 4rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card {
+            padding: 2rem;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            background-color: #fafafa;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2d2d2d;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d2d2d;
+        }
+
+        .card-description {
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-link {
+            color: #2d2d2d;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom-color 0.2s ease;
+        }
+
+        .card-link:hover {
+            border-bottom-color: #2d2d2d;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            margin: 4rem 0;
+            border: 1px solid #e0e0e0;
+            background-color: #ffffff;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666666;
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            margin: 3rem 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background-color: #ffffff;
+            color: #2d2d2d;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .contact-item:hover {
+            background-color: #fafafa;
+        }
+
+        /* Section Containers */
+        .section-container {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2d2d2d;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background-color: #f5f5f5;
+            color: #2d2d2d;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e0e0e0;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666666;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 4rem;
+            background-color: #ffffff;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
+            }
+        }
+
+        /* Typography improvements */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        /* Minimal hover effects */
+        .card, .stat-item, .contact-item {
+            transition: background-color 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">UTKRISHT SHARMA</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">HOME</a></li>
+                <li><a href="#research" class="nav-link">RESEARCH</a></li>
+                <li><a href="#experience" class="nav-link">EXPERIENCE</a></li>
+                <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">FULL STACK SOFTWARE ENGINEER</h1>
+                <p class="hero-subtitle">Building innovative solutions across diverse industries</p>
+                <p class="hero-description">
+                    Based in Canada with 5+ years of experience in developing scalable applications, 
+                    AI/ML solutions, and leading high-impact projects. Specialized in MEAN stack, 
+                    cloud computing, and data science.
+                </p>
+                <div class="cta-buttons">
+                    <a href="resume.docx" class="cta-button btn-primary" target="_blank">
+                        DOWNLOAD RESUME
+                    </a>
+                    <a href="#contact" class="cta-button btn-secondary">
+                        GET IN TOUCH
+                    </a>
+                    <a href="https://calendly.com/utkrishtsharma93" class="cta-button btn-secondary" target="_blank">
+                        BOOK MEETING
+                    </a>
+                </div>
             </div>
-			<!-- Left Block -->
-			<nav class="header-main" data-simplebar>
-				<!-- Logo -->
-				<div class="logo">
-            		<img src="img/logo.png" alt="">
-            	</div>
-          		<ul>
-					<li data-tooltip="home" data-position="top">
-            			<a href="#home" class="icon-h fas fa-house-damage"></a>
-					</li>
-					<li data-tooltip="about" data-position="top">
-            			<a href="#about" class="icon-a fas fa-user-tie"></a>
-					</li>
-					<li data-tooltip="resume" data-position="top">
-            			<a href="#resume" class="icon-r fas fa-address-book"></a>
-					</li>
-					<li data-tooltip="contact" data-position="bottom">
-						<a href="#contact" class="icon-c fas fa-envelope"></a>
-					</li>
-          		</ul>
-			 </nav>
-			<!-- Home Section -->
-          	<div class="pt-home" style="background-image: url('img/home-bg.jpg')">
-				<!-- Particles -->
-				<div id="particles-js"></div>
-             	<section>
-					<!-- Banner -->
-					<div class="banner">
-  						<h1>Utkrisht Sharma</h1>
-						<p class="cd-headline rotate-1">
-							<span>I am a</span>
-							<span class="cd-words-wrapper">
-								<b class="is-visible">Developer</b>
-								<b>Designer</b>
-								<b>Freelancer</b>
-							</span>
+        </section>
 
-						</p>
-						   <div class="centered-div">
-							    <a href="password.html" class="button">Personal</a>
-                                                             
-							    <a href="Professional.html" class="button">Professional</a>
-                                                            <a href="https://calendly.com/utkrishtsharma93" class="button"> Book Meeting </a>
-							</div>
-					</div>
-					<!-- Social -->
-					<div class="social">
-            			<ul>
-							<li><a href="https://www.linkedin.com/in/utkrisht-sharma-9b54b0155/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							
-                			
-            			</ul>
-        			</div>
-			  	</section>  
-          	</div>
-			<!-- About Section -->
-			<div class="page pt-about" data-simplebar>
-				<section class="container">
-					<!-- Section Title -->
-					<div class="header-page mt-70 mob-mt">
-						<h2>About Me</h2>
-						<span></span>
-					</div>
-					<!-- Personal Info Start -->
-					<div class="row mt-100">
-						<!-- Information Block -->
-						<div class="col-lg-12 col-sm-12">
-    						<div class="info box-1">
-								<div class="row">
-									<div class="col-lg-3 col-sm-4">
-										<div class="photo">
-											<img alt="" src="img/user-photo.jpg">		
-										</div>	
-									</div>
-									<div class="col-lg-9 col-sm-8">
-										<h4>Utkrisht Sharma</h4>
-										<div class="loc">
-											<i class="fas fa-map-marked-alt"></i> Delhi, India
-										</div>
-										<p>Utkrisht Sharma is a dynamic and accomplished Full Stack Software Engineer based in Canada (remote) with a rich background in developing innovative solutions for diverse industries. 
+        <div class="container">
+            <!-- Stats Section -->
+            <section class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Research Publications</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Patent Filed</span>
+                </div>
+            </section>
 
-In his recent role at Yactraq Online Inc, as a Full Stack Software Engineer, Utkrisht not only demonstrated technical excellence but also negotiated a 20% raise within the first month for outstanding performance. He played a pivotal role in creating the Emotion Detection module, a core asset for the company, and independently developed a "Text to Emotion Detection" module using NLTK and machine learning techniques. Utkrisht productionized a service for automating the configuration of Google Cloud app monitoring, integrating various APIs and employing the MEAN stack, Docker, Microservices, and Kubernetes.
+            <!-- Main Navigation Cards -->
+            <section class="grid">
+                <div class="card" onclick="window.location.href='research.html'">
+                    <div class="card-icon">[R]</div>
+                    <h3 class="card-title">RESEARCH MILESTONES</h3>
+                    <p class="card-description">
+                        Explore my published research papers, AI-based drone innovations, 
+                        and breakthrough work in pollution detection and emotion analysis.
+                    </p>
+                    <a href="research.html" class="card-link">VIEW RESEARCH →</a>
+                </div>
 
-As a Data Science Engineer at Aerogram (IIT) in Delhi, India, he contributed significantly to a startup specializing in city-scale Air Pollution Monitors. Utkrisht achieved a remarkable 95% accuracy in sensor value prediction, leading to a 95% reduction in data storage requirements. His optimizations in circuit design resulted in a 20% performance boost, enhancing the overall efficiency of the pollution monitoring system.
+                <div class="card" onclick="window.location.href='Professional.html'">
+                    <div class="card-icon">[P]</div>
+                    <h3 class="card-title">PROFESSIONAL EXPERIENCE</h3>
+                    <p class="card-description">
+                        Full-stack development at Yactraq, data science at Aerogram (IIT), 
+                        and software engineering across multiple industries.
+                    </p>
+                    <a href="Professional.html" class="card-link">VIEW EXPERIENCE →</a>
+                </div>
 
-At Proud Care Foundation in Delhi, India, Utkrisht served as a Software Engineer and created a highly successful web application catering to small businesses. He utilized a tech stack including React, Vue.js, jQuery, MongoDB, Node.js, and GitHub. His strategic UI/UX enhancements significantly improved user retention rates by 20%, and automation of repetitive processes led to a commendable 15% increase in overall productivity.
+                <div class="card" onclick="window.location.href='portfolio.html'">
+                    <div class="card-icon">[X]</div>
+                    <h3 class="card-title">PROJECT PORTFOLIO</h3>
+                    <p class="card-description">
+                        Innovative projects including emotion detection modules, 
+                        cloud monitoring automation, and award-winning drone systems.
+                    </p>
+                    <a href="portfolio.html" class="card-link">VIEW PROJECTS →</a>
+                </div>
 
-Utkrisht holds a Master of Science in Computer Science from San Francisco State University and a Bachelor's in Computer Science and Engineering from Amity University. He has earned several certificates, including AWS Certified Machine Learning & Cloud Computing - SPECIALTY, and has completed courses from DataCamp, IBM, IITCL, and Coursera.
+                <div class="card" onclick="window.location.href='password.html'">
+                    <div class="card-icon">[I]</div>
+                    <h3 class="card-title">PERSONAL JOURNEY</h3>
+                    <p class="card-description">
+                        Discover my interests, achievements, and the story behind 
+                        my passion for technology and innovation.
+                    </p>
+                    <a href="password.html" class="card-link">PERSONAL INFO →</a>
+                </div>
+            </section>
 
-His impressive project work and publications include two research papers published in the International Journal for Scientific Research & Development, a patent on "Detection of soil pollution and Garbage in society using AI-based Drone," and the creation of an AI assistant Drone Swarm that won the 1st position in the Indian AIR Force Mehar Baba Swarm Drone Competition in October 2019.
+            <!-- Quick Access Section -->
+            <section class="section-container">
+                <h2 class="section-title">QUICK ACCESS</h2>
+                <div class="contact-info">
+                    <a href="mailto:utkrishtsharma93@gmail.com" class="contact-item">
+                        [E] EMAIL
+                    </a>
+                    <a href="https://www.linkedin.com/in/utkrisht-sharma-9b54b0155/" class="contact-item" target="_blank">
+                        [L] LINKEDIN
+                    </a>
+                    <a href="tel:+917290991032" class="contact-item">
+                        [T] PHONE
+                    </a>
+                    <a href="#location" class="contact-item">
+                        [M] DELHI, INDIA
+                    </a>
+                </div>
+            </section>
 
-Utkrisht Sharma is not only a skilled technologist but also a strategic thinker and leader, consistently delivering impactful solutions across various domains.
-										</p>
-									</div>
-									<!-- Icon Info -->
-									<div class="col-lg-3 col-sm-4">
-                                		<div class="info-icon">
-                                     		<i class="fas fa-award"></i>
-                                     		<div class="desc-icon">
-												<h6>5+ Years</h6>
-                                            	<p>Experience</p>
-                                       		</div>
-                                		</div>
-                                	</div>
-									<!-- Icon Info -->
-									<div class="col-lg-3 col-sm-4">
-                                		<div class="info-icon">
-                                     		<i class="fas fa-certificate"></i>
-                                     		<div class="desc-icon">
-												<h6>200+ Projects</h6>
-                                            	<p>Completed</p>
-                                      		</div>
-                                		</div>
-                                	</div>
-									<!-- Icon Info -->
-									<div class="col-lg-3 col-sm-4">
-                                		<div class="info-icon">
-                                     		<i class="fas fa-user-astronaut"></i>
-                                     		<div class="desc-icon">
-												<h6>Freelance</h6>
-                                           		<p>Available</p>
-                                        	</div>
-                                		</div>
-                                	</div>
-									<div class="col-lg-3 col-sm-12 pt-50">
-                                		<a href="resume.docx" target="_blank" class="btn-st">Download CV</a>
-                                	</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Interests Row Start -->
-					<div class="row mt-100">
-						<!-- Header Block -->
-						<div class="col-md-12">
-							<div class="header-box mb-50">
-								<h3>My Interests</h3>
-							</div>
-						</div>
-						<div class="col-lg-12 col-sm-12">
-							<div class="box-2">
-								<div class="row">
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-        	                             	<i class="fas fa-gamepad"></i>
-            	                         	<div class="desc-inter">
-												<h6>Snooker</h6>
-                    	                   	</div>
-                        	        	</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                 	    	<i class="far fa-image"></i>
-                                  		   	<div class="desc-inter">
-												<h6>Photos</h6>
-                                  	     	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-film"></i>
-                                     		<div class="desc-inter">
-												<h6>Movies</h6>
-                                   	    	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-book"></i>
-                                     		<div class="desc-inter">
-												<h6>Books</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-			  	</section>
-         	</div>
-			<!-- Resume Section -->
-          	<div class="page pt-resume" data-simplebar>
-            	<section class="container">
-					<!-- Section Title -->
-					<div class="header-page mt-70 mob-mt">
-						<h2>Resume</h2>
-    					<span></span>
-					</div>
-					<!-- Experience & Education Row Start -->
-					<div class="row mt-100">
-						<!-- Experience Column Start -->
-						<div class="col-lg-6 col-sm-12">
-							<!-- Header Block -->
-							<div class="header-box mb-50">
-								<h3>Experience</h3>
-							</div>
-							<div class="experience box-1">
-								<!-- Experience Item -->
-								<div class="item">
-									<div class="main">
-										<h4>Developer/ Designer</h4>
-										<p><i class="far fa-calendar-alt"></i>2014 - Present | DigtalAddon</p>
-									</div>
-									<p>Worked on 100+ projects at DigitalAddon as a part-time Developer & Designer.</p>
-								</div>
-							</div>
-						</div>
-						<!-- Education Column Start -->
-						<div class="col-lg-6 col-sm-12">
-							<!-- Header Block -->
-							<div class="header-box mb-50 mob-box-mt">
-								<h3>Education</h3>
-							</div>
-							<div class="experience box-2">
-								<!-- Education Item -->
-								<div class="item">
-									<div class="main">
-										<h4>B.Tech</h4>
-										<p><i class="far fa-calendar-alt"></i>2015 - 2019 | Computer Science</p>
-									</div>
-									<p>Amity University, Noida</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Skills Row Start -->
-					<div class="row mt-100">
-						<!-- Header Block -->
-						<div class="col-md-12">
-							<div class="header-box mb-50">
-								<h3>Skills</h3>
-							</div>
-						</div>
-					</div>
-					<!-- Interests Row Start -->
-					<div class="row">
-						<div class="col-lg-12 col-sm-12">
-							<div class="box-2">
-								<div class="row">
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-        	                             	<i class="fas fa-code"></i>
-            	                         	<div class="desc-inter">
-												<h6>Python</h6>
-                    	                   	</div>
-                        	        	</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                 	    	<i class="fas fa-code"></i>
-                                  		   	<div class="desc-inter">
-												<h6>C/C++</h6>
-                                  	     	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-code"></i>
-                                     		<div class="desc-inter">
-												<h6>PHP</h6>
-                                   	    	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-code"></i>
-                                     		<div class="desc-inter">
-												<h6>Java</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-code"></i>
-                                     		<div class="desc-inter">
-												<h6>HTML/CSS</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-code"></i>
-                                     		<div class="desc-inter">
-												<h6>JS</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fas fa-database"></i>
-                                     		<div class="desc-inter">
-												<h6>SQL</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-									<!-- Interests Item -->
-									<div class="col-lg-3 col-sm-6">
-										<div class="inter-icon">
-                                    	 	<i class="fab fa-adobe"></i>
-                                     		<div class="desc-inter">
-												<h6>UI/UX</h6>
-                                    	   	</div>
-                                		</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-			  	</section>
-         	</div>
-			<!-- Contact Section -->
-         	<div class="page pt-contact" data-simplebar>
-            	<section class="container">
-					<!-- Section Title -->
-              		<div class="header-page mt-70 mob-mt">
-						<h2>Contact</h2>
-    					<span></span>
-					</div>
-					<!-- Form Start -->
-					<div class="row mt-100">
-						<div class="col-lg-12 col-sm-12">
-							<div class="contact-form ">
-                        		<form method="post" class="box-1 contact-valid" id="contact-form" action="contact.php">
-
-									<div class="row">
-                            			<div class="col-lg-6 col-sm-12">
-                                			<input type="text" name="name" id="name" class="form-control" placeholder="Name *">
-                            			</div>
-                            			<div class="col-lg-6 col-sm-12">
-                                			<input type="email" name="email" id="email" class="form-control" placeholder="Email *">
-                            			</div>
-                            			<div class="col-lg-12 col-sm-12">
-                                			<textarea class="form-control" name="message"  id="message" placeholder="Your Message"></textarea>
-                            			</div>
-                             			<div class="col-lg-12 col-sm-12 text-center">
-                                			<button type="submit" class="btn-st">Send Message</button>
-                                			<div id="loader">
-                                    			<i class="fas fa-sync"></i>
-                                			</div>
-                            			</div>
-										<div class="col-lg-12 col-sm-12">
-                            				<div class="error-messages">
-                                				<div id="success">
-													<i class="far fa-check-circle"></i>Thank you, your message has been sent.
-												</div>
-                                				<div id="error">
-													<i class="far fa-times-circle"></i>Error occurred while sending email. Please try again later.
-												</div>
-											</div>
-                            			</div>
-									</div>
-                    			</form>
-                    		</div>
-						</div>
-					</div>
-					<!-- Contact Info -->
-					<div class="box-2 contact-info">
-						<div class="row">
-							<div class="col-lg-4 col-sm-12 info">
-								<i class="fas fa-paper-plane"></i>
-         						<p>utkrishtsharma93@gmail.com</p>
-          						<span>Email</span>
-							</div>
-							<div class="col-lg-4 col-sm-12 info">
-								<i class="fas fa-map-marker-alt"></i>
-         						<p>NEW DELHI,DELHI- India</p>
-          						<span>Address</span>
-							</div>	
-							<div class="col-lg-4 col-sm-12 info">
-								<i class="fas fa-phone"></i>
-         						<p>(+91) 7290991032</p>
-          						<span>Phone</span>
-							</div>	
-						</div>
-					</div>
-					<!--Google Map Start-->
-					<div class="google-map box-1 mt-100 mb-100">
-						<div class="row">
-							<div class="col-lg-12">
-								<div id="map" data-latitude="26.8936907" data-longitude="75.7812633" data-zoom="14"></div>
-							</div>
-						</div>
-					</div>
-            	</section>
-          	</div> 
+            <!-- Technologies Section -->
+            <section class="section-container">
+                <h2 class="section-title">CORE TECHNOLOGIES</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">PYTHON</span>
+                    <span class="tech-tag">JAVASCRIPT</span>
+                    <span class="tech-tag">REACT</span>
+                    <span class="tech-tag">NODE.JS</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">DOCKER</span>
+                    <span class="tech-tag">MONGODB</span>
+                    <span class="tech-tag">MACHINE LEARNING</span>
+                    <span class="tech-tag">C/C++</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">JAVA</span>
+                    <span class="tech-tag">SQL</span>
+                </div>
+            </section>
         </div>
-      	</div>
-    	</div>
-  		</div>
-		<!-- All Script -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/isotope.pkgd.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/simplebar.js"></script>
-		<script src="js/owl.carousel.min.js"></script>
-		<script src="js/jquery.magnific-popup.min.js"></script>
-		<script src="js/jquery.animatedheadline.min.js"></script>
-		<script src="js/jquery.easypiechart.js"></script>
-		<script src="js/jquery.validation.js"></script>
-		<script src="js/tilt.js"></script>
-        <script src="js/main.js"></script>
-        <script src="maps/api/js_sensor_false.js"></script>
-		<!-- Page Script -->
-		<script src="js/particles.min.js"></script>
-		<script>
-			particlesJS.load('particles-js', 'js/particles.js', function() {
-				console.log('callback - particles.js config loaded');
-        	});		
-		</script>
-    <center><font size="2">This is the free demo result. For a full version of this website, please go to  <a href="https://www6.waybackmachinedownloader.com/website-downloader-online/scrape-all-files/">https://www6.waybackmachinedownloader.com/website-downloader-online/scrape-all-files/</a></font></center></body>
-<!-- Utkrisht Sharma -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 UTKRISHT SHARMA. ALL RIGHTS RESERVED.</p>
+        <p>FULL STACK SOFTWARE ENGINEER | AI/ML SPECIALIST</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
 </html>
