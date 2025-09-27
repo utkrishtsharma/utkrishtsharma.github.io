@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utkrisht Sharma - Full Stack Engineer</title>
     <style>
         * {
@@ -345,12 +345,10 @@
         <nav class="nav-container">
             <div class="logo">UTKRISHT SHARMA</div>
             <ul class="nav-menu">
-                
-                <li><i  href="#home" class="fas fa-home"></i>/li>
+
                 <li><a href="#research" class="nav-link">RESEARCH</a></li>
                 <li><a href="#experience" class="nav-link">EXPERIENCE</a></li>
-                <li><a href="#projects" class="nav-link">PROJECTS</a></li>
-                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+                <li><img src="home.gif" alt="home" style="width:32px; height:25px;object-fit: cover; "></li>
             </ul>
         </nav>
     </header>
@@ -360,9 +358,9 @@
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-content">
-                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-    <img src="img/me.jpg" alt="Profile Photo" style="width:115px; height:140px;object-fit: cover; border-radius: 10px;">
-</div>
+                 <div class="tiktok-img-wrap">
+    <img src="img/solo.png" alt="Profile Photo">
+  </div>
 
                 <h1 class="hero-title">FULL STACK SOFTWARE ENGINEER</h1>
                 <p class="hero-subtitle">Building innovative solutions across diverse industries</p>
@@ -488,7 +486,289 @@
             </section>
         </div>
     </main>
-    <!-- REPLACE YOUR ASSISTANT CSS WITH THIS WORKING VERSION -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 UTKRISHT SHARMA. ALL RIGHTS RESERVED.</p>
+        <p>FULL STACK SOFTWARE ENGINEER | AI/ML SPECIALIST</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+<!-- 1. ADD THIS CSS TO YOUR EXISTING <style> SECTION -->
+<style>
+/* 3D Assistant Styles - Add these to your existing CSS */
+.assistant-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.chat-interface {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    width: 320px;
+    max-height: 400px;
+    display: none;
+    flex-direction: column;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.chat-interface.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #666666;
+    padding: 0;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.message {
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.message.user {
+    background-color: #f8f8f8;
+    margin-left: 20px;
+    text-align: right;
+}
+
+.message.assistant {
+    background-color: #ffffff;
+    margin-right: 20px;
+}
+
+.chat-input-container {
+    padding: 1rem;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.chat-input:focus {
+    border-color: #2d2d2d;
+}
+
+.chat-send {
+    padding: 0.5rem 1rem;
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    transition: background-color 0.2s ease;
+}
+
+.chat-send:hover {
+    background-color: #1a1a1a;
+}
+
+.assistant-avatar {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    transition: transform 1.0s ease;
+}
+
+.assistant-avatar:hover {
+    transform: scale(0.1);
+}
+
+.thought-bubble {
+    position: absolute;
+    top: -35px;
+    right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    color: #2d2d2d;
+    pointer-events: none;
+}
+
+.thought-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #e0e0e0;
+}
+
+.thought-bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.loading-indicator {
+    display: none;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666666;
+}
+
+@media (max-width: 768px) {
+    .assistant-container {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .chat-interface {
+        width: 280px;
+    }
+    
+    .assistant-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+  
+    .tiktok-img-wrap {
+      position: relative;
+      width: 100px;
+      height: 140px;
+      margin: 50px auto; /* center and give some top space */
+      overflow: visible;
+    }
+
+    .tiktok-img-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Base border / glow using drop-shadow and box-shadow */
+    .tiktok-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      /* white “base” border layered under shadows to give shape */
+      box-shadow:
+        0 0 0 2px white,                            /* base thin white border */
+        10px 0 0 0 #fe2d52,                         /* right red offset */
+        -10px 0 0 0 #28ffff;                        /* left cyan offset */
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Additional drop-shadow glows */
+    .tiktok-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      pointer-events: none;
+      /* use drop-shadows to add colored shadows around image */
+      filter: drop-shadow(8px 0 0 #fe2d52) drop-shadow(-8px 0 0 #28ffff);
+      z-index: 0;
+    }
+
+    /* Optionally, add a subtle animation to pulse or shift */
+    @keyframes glowShift {
+      0%, 100% {
+        box-shadow:
+          0 0 0 2px white,
+          10px 0 0 0 #fe2d52,
+          -10px 0 0 0 #28ffff;
+      }
+      50% {
+        box-shadow:
+          0 0 0 2px white,
+          12px 0 0 0 #fe2d52,
+          -12px 0 0 0 #28ffff;
+      }
+    }
+
+    .tiktok-img-wrap::before {
+      animation: glowShift 2s infinite alternate ease-in-out;
+    }
+</style>
+
+
+
+<!-- REPLACE YOUR ASSISTANT CSS WITH THIS WORKING VERSION -->
 <style>
 /* Working Draggable 3D Assistant */
 .assistant-container {
@@ -513,14 +793,10 @@
 
 .assistant-avatar {
     position: relative;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(76, 175, 80, 0.2), transparent);
-    border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 25px rgba(45, 45, 45, 0.3);
     cursor: grab;
 }
 
@@ -692,7 +968,7 @@
 <div class="assistant-container" id="assistantContainer">
     <div class="chat-bubble" id="chatBubble">
         <div class="chat-response" id="chatResponse">
-            Hi! I'm Utkrisht's AI assistant. Ask me anything about his work!
+            Hi! I'm Utkrisht's AI assistant. Ask me his works!
         </div>
         <div class="chat-input-area">
             <textarea class="chat-input" id="chatInput" 
@@ -726,7 +1002,7 @@ function initAvatar() {
     
     // Scene setup
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(80, 1, 0.1, 100);
     renderer = new THREE.WebGLRenderer({ 
         canvas: canvas, 
         alpha: true, 
@@ -747,7 +1023,7 @@ function initAvatar() {
     scene.add(directionalLight);
     
     // Position camera
-    camera.position.z = 50;
+    camera.position.z = 30;
     camera.position.y = 5;
     
     // Start animation
@@ -767,8 +1043,8 @@ function createStickman() {
     group.add(head);
     
     // Eyes
-    const eyeMaterial = new THREE.MeshBasicMaterial({ color: #FFFFFF });
-    const eyeGeometry = new THREE.SphereGeometry(0.9, 8, 8);
+    const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x4CAF50 });
+    const eyeGeometry = new THREE.SphereGeometry(0.8, 8, 8);
     
     const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
     leftEye.position.set(-1.5, 13, 3);
@@ -966,7 +1242,7 @@ function resetIdleTimer() {
     
     idleTimeout = setTimeout(() => {
         startWalking();
-    }, 120000); // 2 minutes
+    }, (Math.random() - 5) * 30); // rando 1-7
 }
 
 function startWalking() {
@@ -984,10 +1260,10 @@ function startWalking() {
         walkSteps++;
         moveRandomly();
         
-        if (walkSteps >= 7) {
+        if (walkSteps >= 4) {
             stopWalking();
         }
-    }, 800);
+    }, 10000);
 }
 
 function stopWalking() {
@@ -1027,7 +1303,7 @@ function showThought(text) {
     
     setTimeout(() => {
         bubble.classList.remove('show');
-    }, 2500);
+    }, 5500);
 }
 
 function startThoughts() {
@@ -1046,7 +1322,7 @@ function startThoughts() {
             showThought(thoughts[index]);
             index = (index + 1) % thoughts.length;
         }
-    }, 5000);
+    }, 6000);
 }
 
 // Auto-resize textarea
@@ -1082,29 +1358,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 });
 </script>
-
-    
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 UTKRISHT SHARMA. ALL RIGHTS RESERVED.</p>
-        <p>FULL STACK SOFTWARE ENGINEER | AI/ML SPECIALIST</p>
-    </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
+
+
+
+
+
+
+
