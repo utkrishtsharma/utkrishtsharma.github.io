@@ -1036,7 +1036,11 @@ function initAvatar() {
 function createStickman() {
     const group = new THREE.Group();
     const material = new THREE.MeshPhongMaterial({ color: 0x2d2d2d });
-    
+        // Suit material (black) and tie material (white)
+    const suitMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+    const tieMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+    const skinMaterial = new THREE.MeshPhongMaterial({ color: 0x2d2d2d });  // existing “material” for non-clothing parts
+
     // Head
     const headGeometry = new THREE.SphereGeometry(4, 16, 16);
     const head = new THREE.Mesh(headGeometry, material);
@@ -1055,41 +1059,52 @@ function createStickman() {
     rightEye.position.set(1.5, 13, 3);
     group.add(rightEye);
     
-    // Muscular torso
+   // Torso → make it the suit jacket
     const torsoGeometry = new THREE.CylinderGeometry(3, 4, 12, 12);
-    const torso = new THREE.Mesh(torsoGeometry, material);
+    const torso = new THREE.Mesh(torsoGeometry, suitMaterial);
     torso.position.y = 2;
     group.add(torso);
-    
-    // Arms
+
+    // Tie: a thin box or cylinder in front of torso
+    const tieGeometry = new THREE.BoxGeometry(1, 6, 0.5);
+    const tie = new THREE.Mesh(tieGeometry, tieMaterial);
+    tie.position.set(0, 0, 3.1);  // in front of torso
+    tie.rotation.x = 0;
+    group.add(tie);
+
+    // Arms → suit sleeves (use suitMaterial)
     const armGeometry = new THREE.CylinderGeometry(1.5, 1.2, 10, 8);
-    
-    const leftArm = new THREE.Mesh(armGeometry, material);
+    const leftArm = new THREE.Mesh(armGeometry, suitMaterial);
     leftArm.position.set(-6, 6, 0);
     leftArm.rotation.z = 0.3;
     group.add(leftArm);
-    
-    const rightArm = new THREE.Mesh(armGeometry, material);
+    const rightArm = new THREE.Mesh(armGeometry, suitMaterial);
     rightArm.position.set(6, 6, 0);
     rightArm.rotation.z = -0.3;
     group.add(rightArm);
-    
-    // Legs
+
+    // Legs → sleek pants (black)
     const legGeometry = new THREE.CylinderGeometry(1.8, 1.5, 14, 8);
-    
-    const leftLeg = new THREE.Mesh(legGeometry, material);
+    const leftLeg = new THREE.Mesh(legGeometry, suitMaterial);
     leftLeg.position.set(-2, -10, 0);
     group.add(leftLeg);
-    
-    const rightLeg = new THREE.Mesh(legGeometry, material);
+    const rightLeg = new THREE.Mesh(legGeometry, suitMaterial);
     rightLeg.position.set(2, -10, 0);
     group.add(rightLeg);
-    
+
+    // Shoes → maybe small black boxes/cylinders at feet ends
+    const shoeGeometry = new THREE.BoxGeometry(3, 1, 2);
+    const leftShoe = new THREE.Mesh(shoeGeometry, suitMaterial);
+    leftShoe.position.set(-2, -17.5, 0);
+    group.add(leftShoe);
+    const rightShoe = new THREE.Mesh(shoeGeometry, suitMaterial);
+    rightShoe.position.set(2, -17.5, 0);
+    group.add(rightShoe);
+
     stickman = group;
     scene.add(stickman);
-    
-    console.log("Stickman created with", group.children.length, "parts");
 }
+    
 
 function animate() {
     requestAnimationFrame(animate);
