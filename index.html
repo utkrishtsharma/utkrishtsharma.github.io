@@ -1039,7 +1039,7 @@ function createStickman() {
         // Suit material (black) and tie material (white)
     const suitMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
     const tieMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-    const skinMaterial = new THREE.MeshPhongMaterial({ color: 0x2d2d2d });  // existing “material” for non-clothing parts
+    const skinMaterial = new THREE.MeshPhongMaterial({ color: #808080});  // existing “material” for non-clothing parts
 
     // Head
     const headGeometry = new THREE.SphereGeometry(4, 16, 16);
@@ -1095,10 +1095,10 @@ function createStickman() {
     // Shoes → maybe small black boxes/cylinders at feet ends
     const shoeGeometry = new THREE.BoxGeometry(3, 1, 2);
     const leftShoe = new THREE.Mesh(shoeGeometry, suitMaterial);
-    leftShoe.position.set(-2, -17.5, 0);
+    leftShoe.position.set(-3, -17.5, 0);
     group.add(leftShoe);
     const rightShoe = new THREE.Mesh(shoeGeometry, suitMaterial);
-    rightShoe.position.set(2, -17.5, 0);
+    rightShoe.position.set(3, -17.5, 0);
     group.add(rightShoe);
 
     stickman = group;
