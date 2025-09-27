@@ -1035,6 +1035,7 @@ function initAvatar() {
 
 function createStickman() {
     const group = new THREE.Group();
+    const material = new THREE.MeshPhongMaterial({ color: 0x2d2d2d });
         // Suit material (black) and tie material (white)
     const suitMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
     const tieMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
