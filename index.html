@@ -6,6 +6,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utkrisht Sharma - Full Stack Engineer</title>
     <style>
+        /* App Launcher Styles */
+.app-launcher-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.app-launcher-button:hover {
+    background-color: rgba(45, 45, 45, 0.95);
+    color: white;
+    transform: scale(1.1);
+}
+
+.app-launcher-overlay {
+    position: fixed;
+    top: 0;
+    right: -34%;
+    width: 33.33%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(224, 224, 224, 0.3);
+    z-index: 998;
+    transition: right 0.4s cubic-bezier(0.5, 0, 0, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.app-launcher-overlay.active {
+    right: 0;
+}
+
+.app-launcher-header {
+    padding: 2rem;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.app-launcher-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    margin: 0;
+}
+
+.app-list {
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 120px);
+}
+
+.app-list li {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    float: none;
+    clear: none;
+    transition: all 0.3s cubic-bezier(0.5, 0, 0, 1);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(224, 224, 224, 0.4);
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+}
+
+.app-list li a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: #2d2d2d;
+    transition: all 0.3s ease;
+}
+
+.app-list li:hover {
+    background: rgba(45, 45, 45, 0.9);
+    transform: translateX(-5px);
+    cursor: pointer;
+}
+
+.app-list li:hover a {
+    color: white;
+}
+
+.app-list li .material-icons {
+    font-size: 24px;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.app-list li:hover .material-icons {
+    transform: scale(1.2);
+}
+
+.app-list li .fieldname {
+    padding-left: 0;
+    position: static;
+    bottom: auto;
+    white-space: nowrap;
+    display: inline-block;
+    width: auto;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .app-launcher-overlay {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+        
         * {
             margin: 0;
             padding: 0;
@@ -985,8 +1112,61 @@
     </div>
 </div>
 
+<!-- App Launcher Button -->
+<div class="app-launcher-button" onclick="toggleAppLauncher()">
+    <i class="material-icons">apps</i>
+</div>
+
+<!-- App Launcher Overlay -->
+<div class="app-launcher-overlay" id="appLauncherOverlay">
+    <div class="app-launcher-header">
+        <h2 class="app-launcher-title">MY APPLICATIONS</h2>
+    </div>
+    <ol class="app-list" id="appList"></ol>
+</div>
+
+<script src="apps-config.js"></script>
+<script>
+function toggleAppLauncher() {
+    const overlay = document.getElementById('appLauncherOverlay');
+    overlay.classList.toggle('active');
+}
+
+// Close overlay when clicking outside
+document.addEventListener('click', function(e) {
+    const overlay = document.getElementById('appLauncherOverlay');
+    const button = document.querySelector('.app-launcher-button');
+    
+    if (overlay.classList.contains('active') && 
+        !overlay.contains(e.target) && 
+        !button.contains(e.target)) {
+        overlay.classList.remove('active');
+    }
+});
+
+// Load apps from config
+document.addEventListener('DOMContentLoaded', function() {
+    const appList = document.getElementById('appList');
+    
+    if (typeof APPS_CONFIG !== 'undefined') {
+        APPS_CONFIG.forEach(app => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <a href="${app.url}" target="_blank" rel="noopener noreferrer">
+                    <i class="material-icons">${app.icon}</i>
+                    <span class="fieldname">${app.name}</span>
+                </a>
+            `;
+            appList.appendChild(li);
+        });
+    }
+});
+</script>
+
 <!-- REPLACE YOUR ASSISTANT JAVASCRIPT WITH THIS WORKING VERSION -->
 <script>
+
+
 // Working 3D Stickman
 let scene, camera, renderer, stickman;
 let isDragging = false;
