@@ -15,6 +15,11 @@ const APPS_CONFIG = [
         url: "portfolio.html"
     },
     {
+        name: "Personal Journey",
+        icon: "lock",
+        url: "password.html"
+    },
+    {
         name: "GitHub",
         icon: "code",
         url: "https://github.com/yourusername"
@@ -38,5 +43,10 @@ const APPS_CONFIG = [
         name: "Calendar",
         icon: "event",
         url: "https://calendly.com/utkrishtsharma93"
+    },
+    {
+        name: "Phone",
+        icon: "phone",
+        url: "tel:+917290991032"
     }
 ];
