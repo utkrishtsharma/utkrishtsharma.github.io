@@ -895,6 +895,163 @@
 <script>
 
 
+// Chat functionality with free AI API
+function toggleChat() {
+    const chatBubble = document.getElementById('chatBubble');
+    const thoughtBubble = document.getElementById('thoughtBubble');
+    
+    chatBubble.classList.toggle('active');
+    
+    if (chatBubble.classList.contains('active')) {
+        thoughtBubble.classList.remove('show');
+        document.getElementById('chatInput').focus();
+    }
+}
+
+// Make thought bubble clickable to open chat
+document.addEventListener('DOMContentLoaded', function() {
+    const thoughtBubble = document.getElementById('thoughtBubble');
+    
+    thoughtBubble.style.cursor = 'pointer';
+    thoughtBubble.style.pointerEvents = 'auto';
+    
+    thoughtBubble.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleChat();
+    });
+});
+
+// Send message using free AI API (HuggingFace Inference API - no key required)
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const responseDiv = document.getElementById('chatResponse');
+    const userMessage = input.value.trim();
+    
+    if (!userMessage) return;
+    
+    // Show loading state
+    responseDiv.innerHTML = '<span class="loading">Thinking...</span>';
+    input.value = '';
+    input.style.height = 'auto';
+    
+    try {
+        // Using HuggingFace's free inference API (no API key needed)
+        const response = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                inputs: `User asks about Utkrisht Sharma: ${userMessage}`,
+                parameters: {
+                    max_length: 100,
+                    temperature: 0.7,
+                    top_p: 0.9
+                }
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('API request failed');
+        }
+        
+        const data = await response.json();
+        let aiResponse = data[0]?.generated_text || "I'm here to help! Ask me about Utkrisht's work.";
+        
+        // Clean up the response
+        aiResponse = aiResponse.replace(`User asks about Utkrisht Sharma: ${userMessage}`, '').trim();
+        
+        // Fallback context about Utkrisht
+        if (aiResponse.length < 10) {
+            aiResponse = getContextualResponse(userMessage);
+        }
+        
+        responseDiv.textContent = aiResponse;
+        
+    } catch (error) {
+        console.error('AI API Error:', error);
+        // Fallback to local responses
+        responseDiv.textContent = getContextualResponse(userMessage);
+    }
+}
+
+// Fallback contextual responses about Utkrisht
+function getContextualResponse(message) {
+    const lowerMsg = message.toLowerCase();
+    
+    const responses = {
+        'research': "Utkrisht has published research on AI-based drone systems and emotion detection. Check the Research section for details!",
+        'experience': "He has 7+ years of experience including work at Yactraq and IIT's Aerogram. View his Professional Experience page!",
+        'skills': "Utkrisht specializes in Python, MEAN stack, AWS, Machine Learning, and full-stack development.",
+        'education': "He studied at top institutions and has strong background in Computer Science and AI/ML.",
+        'contact': "You can reach him at utkrishtsharma93@gmail.com or via LinkedIn!",
+        'projects': "He's built 200+ projects including emotion detection systems and cloud automation tools.",
+        'patent': "Utkrisht has filed a patent for an innovative drone-based system!",
+        'location': "He's based in SF Bay Area and New Delhi."
+    };
+    
+    for (const [key, response] of Object.entries(responses)) {
+        if (lowerMsg.includes(key)) {
+            return response;
+        }
+    }
+    
+    return "I'm Utkrisht's AI assistant! Ask me about his research, experience, skills, or projects. I can help you learn more about his work!";
+}
+
+// Alternative: Use Google's Gemini (requires API key but has free tier)
+// Uncomment and add your free Gemini API key from https://makersuite.google.com/app/apikey
+/*
+async function sendMessageGemini() {
+    const GEMINI_API_KEY = 'YOUR_FREE_API_KEY'; // Get from Google AI Studio
+    const input = document.getElementById('chatInput');
+    const responseDiv = document.getElementById('chatResponse');
+    const userMessage = input.value.trim();
+    
+    if (!userMessage) return;
+    
+    responseDiv.innerHTML = '<span class="loading">Thinking...</span>';
+    input.value = '';
+    
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: `You are Utkrisht Sharma's AI assistant. Answer this briefly: ${userMessage}`
+                    }]
+                }]
+            })
+        });
+        
+        const data = await response.json();
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        responseDiv.textContent = aiResponse;
+        
+    } catch (error) {
+        responseDiv.textContent = getContextualResponse(userMessage);
+    }
+}
+*//* ADD THIS CSS TO MAKE THOUGHT BUBBLE INTERACTIVE */
+.thought-bubble {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+}
+
+.thought-bubble:hover {
+    background: #f0f0f0;
+    transform: translateY(0) scale(1.05);
+    box-shadow: 0 6px 20px rgba(45, 45, 45, 0.2);
+}
+
+.thought-bubble:active {
+    transform: translateY(0) scale(0.95);
+}
 // Working 3D Stickman
 let scene, camera, renderer, stickman;
 let isDragging = false;
