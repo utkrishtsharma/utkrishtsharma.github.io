@@ -3,206 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utkrisht Sharma - Full Stack Engineer</title>
     <style>
         /* App Launcher Styles */
-.app-launcher-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #e0e0e0;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1002;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.app-launcher-button:hover {
-    background-color: rgba(45, 45, 45, 0.95);
-    color: white;
-    transform: scale(1.1);
-}
-
-.app-launcher-overlay {
-    position: fixed;
-    top: 0;
-    right: -34%;
-    width: 33.33%;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    border-left: 1px solid rgba(224, 224, 224, 0.3);
-    z-index: 1002;
-    transition: right 0.4s cubic-bezier(0.5, 0, 0, 1);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-}
-
-.app-launcher-overlay.active {
-    right: 0;
-}
-
-.app-launcher-header {
-    padding: 2rem;
-    border-bottom: 1px solid rgba(224, 224, 224, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.app-launcher-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2d2d2d;
-    margin: 0;
-}
-
-.app-list {
-    list-style: none;
-    padding: 1rem;
-    margin: 0;
-    overflow-y: auto;
-    max-height: calc(100vh - 120px);
-}
-
-.app-list li {
-    margin: 0;
-    padding: 0;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    float: none;
-    clear: none;
-    transition: all 0.3s cubic-bezier(0.5, 0, 0, 1);
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(224, 224, 224, 0.4);
-    margin-bottom: 0.75rem;
-    border-radius: 8px;
-}
-
-.app-list li a {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    text-decoration: none;
-    color: #2d2d2d;
-    transition: all 0.3s ease;
-}
-
-.app-list li:hover {
-    background: rgba(45, 45, 45, 0.9);
-    transform: translateX(-5px);
-    cursor: pointer;
-}
-
-.app-list li:hover a {
-    color: white;
-}
-
-.app-list li .material-icons {
-    font-size: 24px;
-    margin-right: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.app-list li:hover .material-icons {
-    transform: scale(1.2);
-}
-
-.app-list li .fieldname {
-    padding-left: 0;
-    position: static;
-    bottom: auto;
-    white-space: nowrap;
-    display: inline-block;
-    width: auto;
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .app-launcher-overlay {
-        width: 100%;
-        right: -100%;
-    }
-}
-
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            line-height: 1.6;
-            color: #2d2d2d;
-            background-color: #f8f8f8;
-            font-size: 14px;
-        }
-
-        /* Header Navigation */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            background-color: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2d2d2d;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #666666;
-            font-weight: 500;
-            transition: color 0.2s ease;
-            padding: 0.5rem 0;
-        }
-
-        .nav-link:hover {
-            color: #2d2d2d;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
 
         /* Hero Section */
         .hero {
@@ -493,9 +297,9 @@
                 <h1 class="hero-title">Researcher & ENGINEER</h1>
                 <p class="hero-subtitle">Building Pragmatic solutions across diverse domains</p>
                 <p class="hero-description">
-                    Based in [ Bay Area / New Delhi ] with <b>7+ years of experience </b>in developing Sustainable scalable, 
-                    AI/ML solutions, and leading <b> State of the Art Research </b>projects. Specialized in MEAN stack, 
-                    cloud computing, and data science.
+                    Based in [ SF Bay / New Delhi ] with <b>7+ years of experience </b>in developing Sustainable scalable, 
+                    AI/ML solutions, and leading <b> State of the Art Research </b>projects. Specialized in Python, MEAN stack, 
+                    cloud computing, Algorithm Design and data science.
                 </p>
                 <div class="cta-buttons">
                   <a href="resume.docx" class="cta-button btn-primary" target="_blank" rel="noopener noreferrer">
@@ -515,7 +319,7 @@
         <div class="container">
             <!-- Stats Section -->
             <section class="stats">
-                <div class="stat-item">
+                <div class="stat-item" onclick="window.location.href='Professional.html'">
                     <span class="stat-number">5+</span>
                     <span class="stat-label">Years Experience</span>
                 </div>
@@ -569,7 +373,7 @@
                     <div class="card-icon">[I]</div>
                     <h3 class="card-title">PERSONAL JOURNEY</h3>
                     <p class="card-description">
-                        Discover my interests, achievements, and the story behind 
+                        Discover my Research interests, achievements, and the story behind 
                         my passion for technology and innovation.
                     </p>
                     <a href="password.html" class="card-link">PERSONAL INFO →</a>
@@ -619,7 +423,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>© 2025 UTKRISHT SHARMA. ALL RIGHTS RESERVED.</p>
-        <p>FULL STACK SOFTWARE ENGINEER | AI/ML SPECIALIST</p>
+       
     </footer>
 
     <script>
@@ -652,112 +456,6 @@
     gap: 10px;
 }
 
-.chat-interface {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    width: 320px;
-    max-height: 400px;
-    display: none;
-    flex-direction: column;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
-
-.chat-interface.active {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chat-header {
-    padding: 1rem;
-    border-bottom: 1px solid #e0e0e0;
-    background-color: #f8f8f8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chat-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #2d2d2d;
-}
-
-.chat-close {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #666666;
-    padding: 0;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 1rem;
-    overflow-y: auto;
-    max-height: 250px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.message {
-    padding: 0.5rem;
-    border: 1px solid #e0e0e0;
-    font-size: 0.8rem;
-    line-height: 1.4;
-}
-
-.message.user {
-    background-color: #f8f8f8;
-    margin-left: 20px;
-    text-align: right;
-}
-
-.message.assistant {
-    background-color: #ffffff;
-    margin-right: 20px;
-}
-
-.chat-input-container {
-    padding: 1rem;
-    border-top: 1px solid #e0e0e0;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.chat-input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #e0e0e0;
-    background-color: #ffffff;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.8rem;
-    outline: none;
-}
-
-.chat-input:focus {
-    border-color: #2d2d2d;
-}
-
-.chat-send {
-    padding: 0.5rem 1rem;
-    background-color: #2d2d2d;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.8rem;
-    transition: background-color 0.2s ease;
-}
-
-.chat-send:hover {
-    background-color: #1a1a1a;
-}
 
 .assistant-avatar {
     position: relative;
@@ -1113,56 +811,8 @@
     </div>
 </div>
 
-<!-- App Launcher Button -->
-<div class="app-launcher-button" onclick="toggleAppLauncher()">
-    <i class="material-icons">apps</i>
-</div>
 
-<!-- App Launcher Overlay -->
-<div class="app-launcher-overlay" id="appLauncherOverlay">
-    <div class="app-launcher-header">
-        <h2 class="app-launcher-title">MY APPLICATIONS</h2>
-    </div>
-    <ol class="app-list" id="appList"></ol>
-</div>
 
-<script src="apps-config.js"></script>
-<script>
-function toggleAppLauncher() {
-    const overlay = document.getElementById('appLauncherOverlay');
-    overlay.classList.toggle('active');
-}
-
-// Close overlay when clicking outside
-document.addEventListener('click', function(e) {
-    const overlay = document.getElementById('appLauncherOverlay');
-    const button = document.querySelector('.app-launcher-button');
-    
-    if (overlay.classList.contains('active') && 
-        !overlay.contains(e.target) && 
-        !button.contains(e.target)) {
-        overlay.classList.remove('active');
-    }
-});
-
-// Load apps from config
-document.addEventListener('DOMContentLoaded', function() {
-    const appList = document.getElementById('appList');
-    
-    if (typeof APPS_CONFIG !== 'undefined') {
-        APPS_CONFIG.forEach(app => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <a href="${app.url}" target="_blank" rel="noopener noreferrer">
-                    <i class="material-icons">${app.icon}</i>
-                    <span class="fieldname">${app.name}</span>
-                </a>
-            `;
-            appList.appendChild(li);
-        });
-    }
-});
-</script>
 
 <!-- REPLACE YOUR ASSISTANT JAVASCRIPT WITH THIS WORKING VERSION -->
 <script>
@@ -1373,65 +1023,6 @@ function endDrag() {
     resetIdleTimer();
 }
 
-// Chat functionality
-function toggleChat() {
-    const bubble = document.getElementById('chatBubble');
-    const isActive = bubble.classList.contains('active');
-    
-    if (isActive) {
-        bubble.classList.remove('active');
-    } else {
-        bubble.classList.add('active');
-        setTimeout(() => {
-            document.getElementById('chatInput').focus();
-        }, 300);
-    }
-    
-    resetIdleTimer();
-}
-
-function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
-    
-    if (!message) return;
-    
-    const response = document.getElementById('chatResponse');
-    response.innerHTML = '<span class="loading">Thinking...</span>';
-    input.value = '';
-    
-    setTimeout(() => {
-        const reply = generateResponse(message);
-        response.textContent = reply;
-        
-        // Auto-hide after reading
-        setTimeout(() => {
-            response.textContent = "What else would you like to know?";
-        }, 6000);
-    }, 1000);
-    
-    resetIdleTimer();
-}
-
-function generateResponse(message) {
-    const msg = message.toLowerCase();
-    
-    if (msg.includes('hi') || msg.includes('hello')) {
-        return "Hi there! Ready to learn about Utkrisht's amazing work?";
-    } else if (msg.includes('experience') || msg.includes('work')) {
-        return "Utkrisht: 5+ years full-stack at Yactraq & Aerogram. MEAN stack expert!";
-    } else if (msg.includes('project')) {
-        return "Top projects: AI drone pollution detection, emotion analysis, 200+ builds!";
-    } else if (msg.includes('skill') || msg.includes('tech')) {
-        return "Skills: Python, JavaScript, React, Node.js, AWS, Docker, ML, C++!";
-    } else if (msg.includes('research') || msg.includes('paper')) {
-        return "2 published papers + 1 patent. AI drone innovations & emotion tech!";
-    } else if (msg.includes('contact')) {
-        return "Email: utkrishtsharma93@gmail.com | Always open to collaboration!";
-    } else {
-        return "Ask about Utkrisht's experience, projects, skills, or research!";
-    }
-}
 
 // Walking system
 function resetIdleTimer() {
@@ -1439,7 +1030,7 @@ function resetIdleTimer() {
     
     idleTimeout = setTimeout(() => {
         startWalking();
-    }, (Math.random() - 5) * 30); // rando 1-7
+    }, (Math.random() - 5) * 10); // rando 1-7
 }
 
 function startWalking() {
