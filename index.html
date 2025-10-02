@@ -7,6 +7,83 @@
     <title>Utkrisht Sharma - Full Stack Engineer</title>
     <style>
         /* App Launcher Styles */
+        @media (max-width: 768px) {
+    .app-launcher-overlay {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.6;
+            color: #2d2d2d;
+            background-color: #f8f8f8;
+            font-size: 14px;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d2d2d;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #666666;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: #2d2d2d;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
         /* Hero Section */
         .hero {
