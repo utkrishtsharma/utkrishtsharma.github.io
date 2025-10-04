@@ -6,6 +6,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utkrisht Sharma - Full Stack Engineer</title>
     <style>
+        /* Small contact icons */
+.contact-item {
+    position: relative;
+    padding-left: 2.5rem !important;
+}
+
+.contact-item::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: invert(0.3);
+}
+
+.contact-item[href*="mailto"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E");
+}
+
+.contact-item[href*="linkedin"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z'/%3E%3C/svg%3E");
+}
+
+.contact-item[href*="tel"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E");
+}
+
+.contact-item[href*="#location"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E");
+}
+
+/* Phone dropdown styles */
+.phone-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.phone-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+    color: #2d2d2d;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.phone-main:hover {
+    background-color: #fafafa;
+}
+
+.phone-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+}
+
+.phone-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.phone-option:hover {
+    background-color: #f8f8f8;
+}
+
+.phone-option:last-child {
+    border-bottom: none;
+}
+
+.flag {
+    width: 16px;
+    height: 12px;
+    background-size: cover;
+    border-radius: 1px;
+}
+
+.flag-india {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Cpath fill='%23FF9933' d='M0 0h3v1H0z'/%3E%3Cpath fill='white' d='M0 1h3v1H0z'/%3E%3Cpath fill='%2313861B' d='M0 2h3v1H0z'/%3E%3Ccircle cx='1.5' cy='1' r='0.25' fill='%23006699'/%3E%3C/svg%3E");
+}
+
+.flag-usa {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Cpath fill='%23002266' d='M0 0h60v30H0z'/%3E%3Cpath fill='%23BF0A30' stroke='%23FFF' stroke-width='2' d='M0 0h24v18H0z'/%3E%3Cpath fill='%23FFF' d='m2 0h2v18H2zm4 0h2v18H6zm4 0h2v18h-2zm4 0h2v18h-2zm4 0h2v18h-2zM0 2h24v2H0zm0 4h24v2H0zm0 4h24v2H0zm0 4h24v2H0z'/%3E%3Cpath fill='%23BF0A30' d='M24 0h36v2H24zm0 4h36v2H24zm0 4h36v2H24zm0 4h36v2H24zm0 4h36v2H24zm0 4h36v2H24zM0 18h60v6H0zm0 6h60v6H0z'/%3E%3C/svg%3E");
+}
+
+.copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(45, 45, 45, 0.9);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    z-index: 1000;
+    display: none;
+    font-size: 0.9rem;
+}
+
+
+        
         /* App Launcher Styles */
         @media (max-width: 768px) {
     .app-launcher-overlay {
@@ -459,23 +585,39 @@
             </section>
 
             <!-- Quick Access Section -->
-            <section class="section-container">
-                <h2 class="section-title">QUICK ACCESS</h2>
-                <div class="contact-info">
-                    <a href="mailto:utkrishtsharma93@gmail.com" class="contact-item">
-                        [E] EMAIL
-                    </a>
-                    <a href="https://www.linkedin.com/in/utkrisht-sharma-9b54b0155/" class="contact-item" target="_blank">
-                        [L] LINKEDIN
-                    </a>
-                    <a href="tel:+917290991032" class="contact-item">
-                        [T] PHONE
-                    </a>
-                    <a href="#location" class="contact-item">
-                        [M] DELHI, INDIA
-                    </a>
-                </div>
-            </section>
+<section class="section-container">
+    <h2 class="section-title">QUICK ACCESS</h2>
+    <div class="contact-info">
+        <a href="mailto:utkrishtsharma93@gmail.com" class="contact-item">
+            EMAIL
+        </a>
+        <a href="https://www.linkedin.com/in/utkrisht-sharma-9b54b0155/" class="contact-item" target="_blank">
+            LINKEDIN
+        </a>
+        <div class="contact-item phone-dropdown">
+            <div class="phone-main">
+                PHONE
+            </div>
+            <div class="phone-options" id="phoneOptions">
+                <a href="tel:+917290991032" class="phone-option" data-number="+91 72909 91032">
+                    <div class="flag flag-india"></div>
+                    <span>INDIA +91 72909 91032</span>
+                </a>
+                <a href="tel:+11234567890" class="phone-option" data-number="+1 (123) 456-7890">
+                    <div class="flag flag-usa"></div>
+                    <span>USA +1 (123) 456-7890</span>
+                </a>
+            </div>
+        </div>
+        <a href="#location" class="contact-item">
+            DELHI, INDIA
+        </a>
+    </div>
+</section>
+
+<div class="copy-notification" id="copyNotification">Number copied to clipboard!</div>
+
+            
 
             <!-- Technologies Section -->
             <section class="section-container">
@@ -894,7 +1036,50 @@
 
 <!-- REPLACE YOUR ASSISTANT JAVASCRIPT WITH THIS WORKING VERSION -->
 <script>
-
+// Phone dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneMain = document.querySelector('.phone-main');
+    const phoneOptions = document.getElementById('phoneOptions');
+    const copyNotification = document.getElementById('copyNotification');
+    
+    if (phoneMain) {
+        phoneMain.addEventListener('click', function(e) {
+            e.preventDefault();
+            phoneOptions.style.display = phoneOptions.style.display === 'flex' ? 'none' : 'flex';
+        });
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.phone-dropdown')) {
+            phoneOptions.style.display = 'none';
+        }
+    });
+    
+    // Copy number to clipboard on option click
+    document.querySelectorAll('.phone-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const number = this.getAttribute('data-number');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(number).then(() => {
+                // Show notification
+                copyNotification.style.display = 'block';
+                setTimeout(() => {
+                    copyNotification.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy number: ', err);
+                // Fallback: open phone dialer
+                window.location.href = this.getAttribute('href');
+            });
+            
+            // Close dropdown
+            phoneOptions.style.display = 'none';
+        });
+    });
+});
 
 // Chat functionality with free AI API
 function toggleChat() {
