@@ -741,9 +741,10 @@
             if (e.target.id === 'addModal') closeModal();
         });
 
-        document.getElementById('setupModal').addEventListener('click', (e) => {
+        document.getElementById('setupModal').addEventListener('cick', (e) => {
             if (e.target.id === 'setupModal') closeSetup();
         });
+
 
         document.getElementById('tagsInput').addEventListener('change', (e) => {
             const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
