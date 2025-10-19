@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -294,6 +295,7 @@
             <div id="configBanner" class="config-banner" style="display: none;">
                 ⚙️ <strong>Setup Required:</strong> Add your GitHub Gist ID to enable global sync. 
                 <a href="#" onclick="showSetup(); return false;">Configure Now</a> or use local-only mode.
+                <br><small>Note: Overleaf integration for live sync is not supported publicly; use Gist for backend or manual export to Overleaf project at <a href="https://www.overleaf.com/9839224247hrfvdzhtfcrw#b7d653" target="_blank">edit link</a>.</small>
             </div>
 
             <div id="statusBar"></div>
@@ -303,6 +305,7 @@
                 <button class="btn" onclick="openModal()">+ Add</button>
                 <button class="btn btn-sm" onclick="syncNow()">🔄 Sync</button>
                 <button class="btn btn-sm" onclick="exportData()">⬇ Export</button>
+                <button class="btn btn-sm" onclick="exportToOverleaf()">📄 To Overleaf</button>
             </div>
 
             <div id="tableContainer">
@@ -332,7 +335,7 @@
                 <div class="news-item">
                     <div class="news-item-title">Getting Started</div>
                     <div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">System</div>
-                    <div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments.</div>
+                    <div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments. For Overleaf sync, export manually to your project.</div>
                 </div>
             </div>
         </div>
@@ -380,6 +383,7 @@
                     <li>Copy the Gist ID from URL (e.g., abc123def456)</li>
                     <li>Optional: Create token at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> with "gist" scope</li>
                 </ol>
+                <p style="margin-bottom: 10px;"><strong>Overleaf Note:</strong> For your project (<a href="https://www.overleaf.com/read/kpwbbhzjngnj#3cbd88" target="_blank">view</a> / <a href="https://www.overleaf.com/9839224247hrfvdzhtfcrw#b7d653" target="_blank">edit</a>), export JSON below and paste into a .tex file as raw text or use as bibliography. Live sync requires Overleaf API access (contact support).</p>
             </div>
             <div class="form-group">
                 <label>Gist ID (Required)</label>
@@ -399,7 +403,7 @@
     <script>
         /**
          * Global configuration for database connection
-         * Uses GitHub Gist as free forever database
+         * Uses GitHub Gist as free forever database (Overleaf not supported for live DB)
          */
         const CONFIG_KEY = 'db_config_v1';
         let papers = [];
@@ -545,6 +549,31 @@
                 localStorage.setItem('papers_local', JSON.stringify(papers));
                 showStatus('Saved locally only', 'error');
             }
+        }
+
+        /**
+         * Export to Overleaf (creates new project with JSON as snippet)
+         */
+        function exportToOverleaf() {
+            const latexContent = `\\documentclass{article}
+\\usepackage[margin=1in]{geometry}
+\\title{Research Topics}
+\\author{Utkrisht Sharma \\texttt{${'utkrishtsharma93@gmail.com'} }}
+\\date{\\today}
+\\begin{document}
+\\maketitle
+
+\\section{Database Export}
+\\begin{verbatim}
+${JSON.stringify(papers, null, 2)}
+\\end{verbatim}
+
+\\end{document}`;
+
+            const encodedSnip = encodeURIComponent(latexContent);
+            const overleafUrl = `https://www.overleaf.com/docs?encoded_snip=${encodedSnip}&visual_editor=true`;
+            window.open(overleafUrl, '_blank');
+            showStatus('Opened in Overleaf for manual merge', 'info');
         }
 
         /**
@@ -734,19 +763,18 @@
 
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            renderTable(e.target.value.toLowerCase());
+            renderTable(e.target.value);
         });
 
         document.getElementById('addModal').addEventListener('click', (e) => {
             if (e.target.id === 'addModal') closeModal();
         });
 
-        document.getElementById('setupModal').addEventListener('cick', (e) => {
+        document.getElementById('setupModal').addEventListener('click', (e) => {
             if (e.target.id === 'setupModal') closeSetup();
         });
 
-
-        document.getElementById('tagsInput').addEventListener('change', (e) => {
+        document.getElementById('tagsInput').addEventListener('input', (e) => {
             const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
             const newsContent = document.getElementById('newsContent');
             
@@ -758,6 +786,8 @@
                         <div style="color: var(--text); line-height: 1.4;">Tracking developments in ${escapeHtml(tag)}.</div>
                     </div>
                 `).join('');
+            } else {
+                newsContent.innerHTML = '<div class="news-item"><div class="news-item-title">Getting Started</div><div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">System</div><div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments.</div></div>';
             }
         });
 
