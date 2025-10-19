@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Library - GitHub DB</title>
+    <title>Research Library - Free Forever DB</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -15,16 +15,18 @@
             font-family: 'Courier New', monospace;
             background: var(--bg);
             color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
             padding: 20px;
             background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .panel {
+        .container { max-width: 1400px; margin: 0 auto; display: flex; gap: 20px; }
+        .main-panel {
+            flex: 1;
             background: var(--paper);
             border: 2px solid var(--border);
             box-shadow: 4px 4px 0 var(--shadow);
             padding: 30px;
-            margin-bottom: 20px;
         }
         header {
             border-bottom: 3px double var(--border);
@@ -35,22 +37,43 @@
             font-size: 2.5rem;
             font-weight: bold;
             letter-spacing: 2px;
+            margin-bottom: 5px;
             text-transform: uppercase;
+        }
+        .subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        .config-banner {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+        .config-banner a {
+            color: #2563eb;
+            font-weight: bold;
         }
         .top-bar {
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .search-input {
             flex: 1;
+            min-width: 200px;
             padding: 12px 15px;
             border: 2px solid var(--border);
             background: white;
             font-family: inherit;
             font-size: 0.95rem;
+            box-shadow: inset 2px 2px 0 var(--shadow);
         }
+        .search-input:focus { outline: none; border-color: var(--accent); }
         .btn {
             padding: 12px 25px;
             border: 2px solid var(--accent);
@@ -60,13 +83,18 @@
             font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.2s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .btn:hover {
             background: var(--accent);
             color: var(--paper);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--shadow);
         }
+        .btn:active { transform: translate(0, 0); box-shadow: 2px 2px 0 var(--shadow); }
+        .btn-sm { padding: 8px 15px; font-size: 0.8rem; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -80,6 +108,9 @@
             text-align: left;
             font-weight: bold;
             text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border: 2px solid var(--accent);
         }
         td {
             padding: 12px 15px;
@@ -93,6 +124,7 @@
             text-decoration: underline;
             cursor: pointer;
         }
+        .actions { display: flex; gap: 8px; }
         .icon-btn {
             padding: 5px 10px;
             border: 1px solid var(--border);
@@ -100,242 +132,636 @@
             cursor: pointer;
             font-size: 0.8rem;
             font-family: inherit;
-            margin-right: 5px;
         }
         .icon-btn:hover {
             background: var(--accent);
             color: white;
+            border-color: var(--accent);
         }
-        .status {
-            padding: 8px;
-            background: #e8f5e9;
-            border-left: 3px solid #4caf50;
+        .news-widget {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .control-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .control-btn:hover { background: rgba(0, 0, 0, 0.1); }
+        .tags-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+        .news-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .news-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
             font-size: 0.85rem;
         }
-        .status.error {
-            background: #ffebee;
-            border-color: #f44336;
+        .news-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--accent);
         }
+        .widget-minimized { height: 60px; overflow: hidden; }
+        .widget-minimized .news-content,
+        .widget-minimized .tags-input { display: none; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content {
+            background: var(--paper);
+            border: 3px solid var(--border);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 8px 8px 0 var(--shadow);
+        }
+        .modal-header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border);
+            background: white;
+            font-family: inherit;
+            font-size: 0.9rem;
+            box-shadow: inset 2px 2px 0 var(--shadow);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+        .status {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.info { background: #d1ecf1; color: #0c5460; }
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; }
+            .news-widget { width: 100%; position: relative; top: 0; max-height: 400px; }
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="panel">
+        <div class="main-panel">
             <header>
                 <h1>Research Archive</h1>
-                <p style="color: var(--text-light); font-style: italic;">GitHub-Powered Database</p>
+                <p class="subtitle">Forever Free Global Database</p>
             </header>
+
+            <div id="configBanner" class="config-banner" style="display: none;">
+                ⚙️ <strong>Setup Required:</strong> Add your GitHub Gist ID to enable global sync. 
+                <a href="#" onclick="showSetup(); return false;">Configure Now</a> or use local-only mode.
+            </div>
 
             <div id="statusBar"></div>
 
             <div class="top-bar">
                 <input type="text" class="search-input" id="searchInput" placeholder="Search papers...">
-                <button class="btn" onclick="addPaper()">+ Add</button>
-                <button class="btn" onclick="exportData()">Export</button>
+                <button class="btn" onclick="openModal()">+ Add</button>
+                <button class="btn btn-sm" onclick="syncNow()">🔄 Sync</button>
+                <button class="btn btn-sm" onclick="exportData()">⬇ Export</button>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 30%">Name</th>
-                        <th style="width: 45%">About</th>
-                        <th style="width: 15%">Link</th>
-                        <th style="width: 10%">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="papersBody"></tbody>
-            </table>
+            <div id="tableContainer">
+                <table id="papersTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%">Name</th>
+                            <th style="width: 45%">About</th>
+                            <th style="width: 15%">Link</th>
+                            <th style="width: 10%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="papersBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="news-widget" id="newsWidget">
+            <div class="widget-header">
+                <span class="widget-title">Research Feed</span>
+                <div class="widget-controls">
+                    <button class="control-btn" onclick="toggleWidget()" title="Minimize">_</button>
+                </div>
+            </div>
+            <input type="text" class="tags-input" id="tagsInput" placeholder="Add tags: AI, ML, quantum...">
+            <div class="news-content" id="newsContent">
+                <div class="news-item">
+                    <div class="news-item-title">Getting Started</div>
+                    <div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">System</div>
+                    <div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Paper Modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Research Paper</h2>
+            </div>
+            <form id="paperForm" onsubmit="savePaper(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="paperName" required>
+                </div>
+                <div class="form-group">
+                    <label>About</label>
+                    <textarea id="paperAbout" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Link</label>
+                    <input type="url" id="paperLink" placeholder="https://" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Setup Modal -->
+    <div class="modal" id="setupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Database Setup</h2>
+            </div>
+            <div style="margin-bottom: 20px; font-size: 0.9rem; line-height: 1.6;">
+                <p style="margin-bottom: 10px;"><strong>Option 1: GitHub Gist (Free Forever)</strong></p>
+                <ol style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Go to <a href="https://gist.github.com" target="_blank">gist.github.com</a></li>
+                    <li>Create a new gist with filename: <code>research.json</code></li>
+                    <li>Content: <code>[]</code></li>
+                    <li>Copy the Gist ID from URL (e.g., abc123def456)</li>
+                    <li>Optional: Create token at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> with "gist" scope</li>
+                </ol>
+            </div>
+            <div class="form-group">
+                <label>Gist ID (Required)</label>
+                <input type="text" id="setupGistId" placeholder="abc123def456">
+            </div>
+            <div class="form-group">
+                <label>GitHub Token (Optional - for write access)</label>
+                <input type="text" id="setupToken" placeholder="ghp_yourtoken (leave empty for read-only)">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn" onclick="closeSetup()">Cancel</button>
+                <button type="button" class="btn" onclick="saveSetup()">Save Config</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // GitHub Configuration - Replace with your repository details
-        const GITHUB_CONFIG = {
-            owner: 'YOUR_USERNAME',
-            repo: 'YOUR_REPO',
-            path: 'data/papers.json',
-            branch: 'main',
-            token: 'ghp_\u200BYour\u200BToken\u200BHere'.replace(/\u200B/g, '') // Personal Access Token
-        };
-
+        /**
+         * Global configuration for database connection
+         * Uses GitHub Gist as free forever database
+         */
+        const CONFIG_KEY = 'db_config_v1';
         let papers = [];
-        let useLocal = GITHUB_CONFIG.owner === 'YOUR_USERNAME';
+        let editingId = null;
+        let config = null;
 
-        function showStatus(message, isError = false) {
-            const status = document.getElementById('statusBar');
-            status.className = 'status' + (isError ? ' error' : '');
-            status.textContent = message;
-            setTimeout(() => status.textContent = '', 3000);
-        }
-
-        async function loadFromGitHub() {
+        /**
+         * Load configuration from localStorage
+         */
+        function loadConfig() {
             try {
-                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
-                const response = await fetch(url, {
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const content = atob(data.content);
-                    papers = JSON.parse(content);
-                    localStorage.setItem('papers_cache', JSON.stringify(papers));
-                    localStorage.setItem('github_sha', data.sha);
-                    showStatus('✓ Loaded from GitHub');
-                } else {
-                    throw new Error('Failed to load');
+                const stored = localStorage.getItem(CONFIG_KEY);
+                config = stored ? JSON.parse(stored) : null;
+                
+                if (!config || !config.gistId) {
+                    document.getElementById('configBanner').style.display = 'block';
                 }
-            } catch (error) {
-                console.error('GitHub load error:', error);
-                const cached = localStorage.getItem('papers_cache');
-                papers = cached ? JSON.parse(cached) : [];
-                showStatus('Using local cache', true);
+            } catch (e) {
+                console.error('Config load error:', e);
+                config = null;
             }
         }
 
-        async function saveToGitHub() {
-            if (useLocal) {
+        /**
+         * Show status message to user
+         */
+        function showStatus(message, type = 'info') {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.className = `status ${type}`;
+            statusBar.textContent = message;
+            statusBar.style.display = 'block';
+            setTimeout(() => {
+                statusBar.style.display = 'none';
+            }, 4000);
+        }
+
+        /**
+         * Load data from GitHub Gist with fallback to localStorage
+         */
+        async function loadData() {
+            // Try loading from cache first for instant display
+            try {
+                const cached = localStorage.getItem('papers_cache');
+                if (cached) {
+                    papers = JSON.parse(cached);
+                    renderTable();
+                }
+            } catch (e) {
+                console.error('Cache load error:', e);
+            }
+
+            // If configured, sync with Gist
+            if (config && config.gistId) {
+                await syncFromGist();
+            } else {
+                // Local-only mode
+                try {
+                    const local = localStorage.getItem('papers_local');
+                    papers = local ? JSON.parse(local) : [];
+                    renderTable();
+                } catch (e) {
+                    papers = [];
+                    renderTable();
+                }
+            }
+        }
+
+        /**
+         * Sync data from GitHub Gist
+         */
+        async function syncFromGist() {
+            try {
+                const url = `https://api.github.com/gists/${config.gistId}`;
+                const headers = { 'Accept': 'application/vnd.github.v3+json' };
+                
+                if (config.token) {
+                    headers['Authorization'] = `token ${config.token}`;
+                }
+
+                const response = await fetch(url, { headers });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                const files = Object.values(data.files);
+                
+                if (files.length > 0) {
+                    const content = files[0].content;
+                    papers = JSON.parse(content);
+                    
+                    // Update cache
+                    localStorage.setItem('papers_cache', JSON.stringify(papers));
+                    
+                    renderTable();
+                    showStatus('✓ Synced from cloud', 'success');
+                }
+            } catch (error) {
+                console.error('Gist sync error:', error);
+                showStatus('Using local cache', 'error');
+            }
+        }
+
+        /**
+         * Save data to GitHub Gist
+         */
+        async function saveToGist() {
+            if (!config || !config.gistId || !config.token) {
+                // Read-only or no config
+                localStorage.setItem('papers_cache', JSON.stringify(papers));
                 localStorage.setItem('papers_local', JSON.stringify(papers));
                 return;
             }
 
             try {
-                const sha = localStorage.getItem('github_sha');
-                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
-                
+                const url = `https://api.github.com/gists/${config.gistId}`;
                 const response = await fetch(url, {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Authorization': `token ${config.token}`,
                         'Accept': 'application/vnd.github.v3+json',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Update research papers',
-                        content: btoa(JSON.stringify(papers, null, 2)),
-                        sha: sha,
-                        branch: GITHUB_CONFIG.branch
+                        files: {
+                            'research.json': {
+                                content: JSON.stringify(papers, null, 2)
+                            }
+                        }
                     })
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    localStorage.setItem('github_sha', data.content.sha);
                     localStorage.setItem('papers_cache', JSON.stringify(papers));
-                    showStatus('✓ Saved to GitHub');
+                    showStatus('✓ Saved to cloud', 'success');
                 } else {
-                    throw new Error('Save failed');
+                    throw new Error(`HTTP ${response.status}`);
                 }
             } catch (error) {
-                console.error('GitHub save error:', error);
+                console.error('Gist save error:', error);
                 localStorage.setItem('papers_cache', JSON.stringify(papers));
-                showStatus('Saved locally only', true);
+                localStorage.setItem('papers_local', JSON.stringify(papers));
+                showStatus('Saved locally only', 'error');
             }
         }
 
-        async function loadData() {
-            if (useLocal) {
-                const local = localStorage.getItem('papers_local');
-                papers = local ? JSON.parse(local) : [];
-                showStatus('Using local storage mode');
+        /**
+         * Manual sync trigger
+         */
+        async function syncNow() {
+            showStatus('Syncing...', 'info');
+            await loadData();
+        }
+
+        /**
+         * Open paper modal for add/edit
+         */
+        function openModal(id = null) {
+            const modal = document.getElementById('addModal');
+            
+            if (id) {
+                editingId = id;
+                const paper = papers.find(p => p.id === id);
+                document.getElementById('modalTitle').textContent = 'Edit Research Paper';
+                document.getElementById('paperName').value = paper.name;
+                document.getElementById('paperAbout').value = paper.about;
+                document.getElementById('paperLink').value = paper.link;
             } else {
-                await loadFromGitHub();
+                editingId = null;
+                document.getElementById('modalTitle').textContent = 'Add Research Paper';
+                document.getElementById('paperForm').reset();
             }
-            renderTable();
+            
+            modal.classList.add('active');
         }
 
-        function addPaper() {
-            const name = prompt('Paper name:');
-            if (!name) return;
-            const about = prompt('About:');
-            if (!about) return;
-            const link = prompt('Link (URL):');
-            if (!link) return;
-
-            papers.unshift({
-                id: Date.now(),
-                name,
-                about,
-                link,
-                dateAdded: new Date().toISOString()
-            });
-
-            saveToGitHub();
-            renderTable();
+        /**
+         * Close paper modal
+         */
+        function closeModal() {
+            document.getElementById('addModal').classList.remove('active');
+            document.getElementById('paperForm').reset();
+            editingId = null;
         }
 
-        function editPaper(id) {
-            const paper = papers.find(p => p.id === id);
-            const name = prompt('Paper name:', paper.name);
-            if (name === null) return;
-            const about = prompt('About:', paper.about);
-            if (about === null) return;
-            const link = prompt('Link:', paper.link);
-            if (link === null) return;
+        /**
+         * Save paper with error handling
+         */
+        async function savePaper(event) {
+            event.preventDefault();
+            
+            const paper = {
+                id: editingId || Date.now(),
+                name: document.getElementById('paperName').value,
+                about: document.getElementById('paperAbout').value,
+                link: document.getElementById('paperLink').value,
+                dateAdded: editingId ? 
+                    papers.find(p => p.id === editingId).dateAdded : 
+                    new Date().toISOString()
+            };
 
-            paper.name = name;
-            paper.about = about;
-            paper.link = link;
+            if (editingId) {
+                const index = papers.findIndex(p => p.id === editingId);
+                papers[index] = paper;
+            } else {
+                papers.unshift(paper);
+            }
 
-            saveToGitHub();
+            await saveToGist();
             renderTable();
+            closeModal();
         }
 
-        function deletePaper(id) {
+        /**
+         * Delete paper with confirmation
+         */
+        async function deletePaper(id) {
             if (!confirm('Delete this paper?')) return;
+            
             papers = papers.filter(p => p.id !== id);
-            saveToGitHub();
+            await saveToGist();
             renderTable();
         }
 
+        /**
+         * Render papers table with search functionality
+         */
         function renderTable(searchTerm = '') {
             const tbody = document.getElementById('papersBody');
             let filtered = papers;
 
             if (searchTerm) {
+                const term = searchTerm.toLowerCase();
                 filtered = papers.filter(p => 
-                    p.name.toLowerCase().includes(searchTerm) ||
-                    p.about.toLowerCase().includes(searchTerm)
+                    p.name.toLowerCase().includes(term) ||
+                    p.about.toLowerCase().includes(term)
                 );
             }
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-light)">No papers found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No papers found. Add your first research paper!</td></tr>';
                 return;
             }
 
             tbody.innerHTML = filtered.map(paper => `
                 <tr>
-                    <td><strong>${paper.name}</strong></td>
-                    <td>${paper.about}</td>
-                    <td class="link-cell" onclick="window.open('${paper.link}', '_blank')">Open ↗</td>
+                    <td><strong>${escapeHtml(paper.name)}</strong></td>
+                    <td>${escapeHtml(paper.about)}</td>
+                    <td class="link-cell" onclick="window.open('${escapeHtml(paper.link)}', '_blank')">Open ↗</td>
                     <td>
-                        <button class="icon-btn" onclick="editPaper(${paper.id})">Edit</button>
-                        <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
+                        <div class="actions">
+                            <button class="icon-btn" onclick="openModal(${paper.id})">Edit</button>
+                            <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
         }
 
+        /**
+         * Escape HTML to prevent XSS
+         */
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Export data as JSON file
+         */
         function exportData() {
             const json = JSON.stringify(papers, null, 2);
             const blob = new Blob([json], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'research-papers-' + new Date().toISOString().split('T')[0] + '.json';
+            a.download = `research-papers-${new Date().toISOString().split('T')[0]}.json`;
             a.click();
-            showStatus('✓ Exported');
+            URL.revokeObjectURL(url);
+            showStatus('✓ Exported successfully', 'success');
         }
 
+        /**
+         * Show setup modal
+         */
+        function showSetup() {
+            document.getElementById('setupModal').classList.add('active');
+            if (config) {
+                document.getElementById('setupGistId').value = config.gistId || '';
+                document.getElementById('setupToken').value = config.token || '';
+            }
+        }
+
+        /**
+         * Close setup modal
+         */
+        function closeSetup() {
+            document.getElementById('setupModal').classList.remove('active');
+        }
+
+        /**
+         * Save setup configuration
+         */
+        function saveSetup() {
+            const gistId = document.getElementById('setupGistId').value.trim();
+            const token = document.getElementById('setupToken').value.trim();
+
+            if (!gistId) {
+                alert('Gist ID is required');
+                return;
+            }
+
+            config = { gistId, token: token || null };
+            localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+            
+            document.getElementById('configBanner').style.display = 'none';
+            closeSetup();
+            showStatus('✓ Configuration saved', 'success');
+            
+            // Sync immediately
+            syncNow();
+        }
+
+        /**
+         * Toggle news widget visibility
+         */
+        function toggleWidget() {
+            document.getElementById('newsWidget').classList.toggle('widget-minimized');
+        }
+
+        // Event listeners
         document.getElementById('searchInput').addEventListener('input', (e) => {
             renderTable(e.target.value.toLowerCase());
         });
 
+        document.getElementById('addModal').addEventListener('click', (e) => {
+            if (e.target.id === 'addModal') closeModal();
+        });
+
+        document.getElementById('setupModal').addEventListener('click', (e) => {
+            if (e.target.id === 'setupModal') closeSetup();
+        });
+
+        document.getElementById('tagsInput').addEventListener('change', (e) => {
+            const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
+            const newsContent = document.getElementById('newsContent');
+            
+            if (tags.length > 0) {
+                newsContent.innerHTML = tags.map(tag => `
+                    <div class="news-item">
+                        <div class="news-item-title">Latest in ${escapeHtml(tag)}</div>
+                        <div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">Research Feed</div>
+                        <div style="color: var(--text); line-height: 1.4;">Tracking developments in ${escapeHtml(tag)}.</div>
+                    </div>
+                `).join('');
+            }
+        });
+
+        // Initialize application
+        loadConfig();
         loadData();
     </script>
 </body>
