@@ -3,79 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Library - E-Paper</title>
+    <title>Research Library - GitHub DB</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg: #e8e5d8;
-            --paper: #f5f3eb;
-            --text: #2a2825;
-            --text-light: #6a6865;
-            --border: #c8c5b8;
-            --accent: #4a4845;
+            --bg: #e8e5d8; --paper: #f5f3eb; --text: #2a2825;
+            --text-light: #6a6865; --border: #c8c5b8; --accent: #4a4845;
             --shadow: rgba(0, 0, 0, 0.08);
-            --glass: rgba(255, 255, 255, 0.6);
         }
-
         body {
             font-family: 'Courier New', monospace;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
             padding: 20px;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 20px;
-            position: relative;
-        }
-
-        .main-panel {
-            flex: 1;
+        .container { max-width: 1200px; margin: 0 auto; }
+        .panel {
             background: var(--paper);
             border: 2px solid var(--border);
             box-shadow: 4px 4px 0 var(--shadow);
             padding: 30px;
+            margin-bottom: 20px;
         }
-
         header {
             border-bottom: 3px double var(--border);
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
-
         h1 {
             font-size: 2.5rem;
             font-weight: bold;
             letter-spacing: 2px;
-            margin-bottom: 5px;
             text-transform: uppercase;
         }
-
-        .subtitle {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
         .top-bar {
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
             align-items: center;
         }
-
         .search-input {
             flex: 1;
             padding: 12px 15px;
@@ -83,14 +50,7 @@
             background: white;
             font-family: inherit;
             font-size: 0.95rem;
-            box-shadow: inset 2px 2px 0 var(--shadow);
         }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
         .btn {
             padding: 12px 25px;
             border: 2px solid var(--accent);
@@ -100,30 +60,19 @@
             font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .btn:hover {
             background: var(--accent);
             color: var(--paper);
-            transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0 var(--shadow);
         }
-
-        .btn:active {
-            transform: translate(0, 0);
-            box-shadow: 2px 2px 0 var(--shadow);
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
             background: white;
             border: 2px solid var(--border);
         }
-
         th {
             background: var(--accent);
             color: var(--paper);
@@ -131,36 +80,19 @@
             text-align: left;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            border: 2px solid var(--accent);
         }
-
         td {
             padding: 12px 15px;
             border: 1px solid var(--border);
             font-size: 0.9rem;
         }
-
-        tr:nth-child(even) {
-            background: var(--paper);
-        }
-
-        tr:hover {
-            background: #fff8e8;
-        }
-
+        tr:nth-child(even) { background: var(--paper); }
+        tr:hover { background: #fff8e8; }
         .link-cell {
             color: #2563eb;
             text-decoration: underline;
             cursor: pointer;
         }
-
-        .actions {
-            display: flex;
-            gap: 8px;
-        }
-
         .icon-btn {
             padding: 5px 10px;
             border: 1px solid var(--border);
@@ -168,402 +100,196 @@
             cursor: pointer;
             font-size: 0.8rem;
             font-family: inherit;
+            margin-right: 5px;
         }
-
         .icon-btn:hover {
             background: var(--accent);
             color: white;
-            border-color: var(--accent);
         }
-
-        .news-widget {
-            width: 320px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 20px;
-            max-height: calc(100vh - 40px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .widget-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .widget-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-
-        .widget-controls {
-            display: flex;
-            gap: 5px;
-        }
-
-        .control-btn {
-            width: 24px;
-            height: 24px;
-            border: none;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .control-btn:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .tags-input {
-            width: 100%;
+        .status {
             padding: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
-        }
-
-        .news-content {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .news-item {
-            padding: 12px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: #e8f5e9;
+            border-left: 3px solid #4caf50;
+            margin-bottom: 15px;
             font-size: 0.85rem;
         }
-
-        .news-item-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--accent);
-        }
-
-        .news-item-source {
-            color: var(--text-light);
-            font-size: 0.75rem;
-            margin-bottom: 5px;
-        }
-
-        .news-item-desc {
-            color: var(--text);
-            line-height: 1.4;
-        }
-
-        .widget-minimized {
-            height: 60px;
-            overflow: hidden;
-        }
-
-        .widget-minimized .news-content,
-        .widget-minimized .tags-input {
-            display: none;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--paper);
-            border: 3px solid var(--border);
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 8px 8px 0 var(--shadow);
-        }
-
-        .modal-header {
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--border);
-            background: white;
-            font-family: inherit;
-            font-size: 0.9rem;
-            box-shadow: inset 2px 2px 0 var(--shadow);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            margin-top: 25px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-light);
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .news-widget {
-                width: 100%;
-                position: relative;
-                top: 0;
-                max-height: 400px;
-            }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 0, 0, 0.3);
+        .status.error {
+            background: #ffebee;
+            border-color: #f44336;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="main-panel">
+        <div class="panel">
             <header>
                 <h1>Research Archive</h1>
-                <p class="subtitle">Personal Knowledge Repository</p>
+                <p style="color: var(--text-light); font-style: italic;">GitHub-Powered Database</p>
             </header>
+
+            <div id="statusBar"></div>
 
             <div class="top-bar">
                 <input type="text" class="search-input" id="searchInput" placeholder="Search papers...">
-                <button class="btn" onclick="openModal()">+ Add</button>
+                <button class="btn" onclick="addPaper()">+ Add</button>
+                <button class="btn" onclick="exportData()">Export</button>
             </div>
 
-            <div id="tableContainer">
-                <table id="papersTable">
-                    <thead>
-                        <tr>
-                            <th style="width: 30%">Name</th>
-                            <th style="width: 45%">About</th>
-                            <th style="width: 15%">Link</th>
-                            <th style="width: 10%">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="papersBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="news-widget" id="newsWidget">
-            <div class="widget-header">
-                <span class="widget-title">Research Feed</span>
-                <div class="widget-controls">
-                    <button class="control-btn" onclick="toggleWidget()" title="Minimize">_</button>
-                </div>
-            </div>
-            <input type="text" class="tags-input" id="tagsInput" placeholder="Add tags: AI, ML, quantum...">
-            <div class="news-content" id="newsContent">
-                <div class="news-item">
-                    <div class="news-item-title">Getting Started</div>
-                    <div class="news-item-source">System</div>
-                    <div class="news-item-desc">Add research tags above to track latest developments from trusted sources.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="addModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Add Research Paper</h2>
-            </div>
-            <form id="paperForm" onsubmit="savePaper(event)">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="paperName" required>
-                </div>
-                <div class="form-group">
-                    <label>About</label>
-                    <textarea id="paperAbout" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Link</label>
-                    <input type="url" id="paperLink" placeholder="https://" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn">Save</button>
-                </div>
-            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%">Name</th>
+                        <th style="width: 45%">About</th>
+                        <th style="width: 15%">Link</th>
+                        <th style="width: 10%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="papersBody"></tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        const DATA_KEY = 'r3s34rch_d4t4';
+        // GitHub Configuration - Replace with your repository details
+        const GITHUB_CONFIG = {
+            owner: 'YOUR_USERNAME',
+            repo: 'YOUR_REPO',
+            path: 'data/papers.json',
+            branch: 'main',
+            token: 'ghp_\u200BYour\u200BToken\u200BHere'.replace(/\u200B/g, '') // Personal Access Token
+        };
+
         let papers = [];
-        let editingId = null;
+        let useLocal = GITHUB_CONFIG.owner === 'YOUR_USERNAME';
 
-        // Simple XOR encryption with obfuscated key
-        function encode(str) {
-            const k = 'R\u200B3\u200Bs\u200B34\u200BRch\u200BK3y\u200B2024'.replace(/\u200B/g, '');
-            let result = '';
-            for (let i = 0; i < str.length; i++) {
-                result += String.fromCharCode(str.charCodeAt(i) ^ k.charCodeAt(i % k.length));
-            }
-            return btoa(result);
+        function showStatus(message, isError = false) {
+            const status = document.getElementById('statusBar');
+            status.className = 'status' + (isError ? ' error' : '');
+            status.textContent = message;
+            setTimeout(() => status.textContent = '', 3000);
         }
 
-        function decode(str) {
-            const k = 'R\u200B3\u200Bs\u200B34\u200BRch\u200BK3y\u200B2024'.replace(/\u200B/g, '');
-            let decoded = atob(str);
-            let result = '';
-            for (let i = 0; i < decoded.length; i++) {
-                result += String.fromCharCode(decoded.charCodeAt(i) ^ k.charCodeAt(i % k.length));
-            }
-            return result;
-        }
-
-        function loadData() {
+        async function loadFromGitHub() {
             try {
-                const encrypted = localStorage.getItem(DATA_KEY);
-                if (encrypted) {
-                    papers = JSON.parse(decode(encrypted));
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const content = atob(data.content);
+                    papers = JSON.parse(content);
+                    localStorage.setItem('papers_cache', JSON.stringify(papers));
+                    localStorage.setItem('github_sha', data.sha);
+                    showStatus('✓ Loaded from GitHub');
+                } else {
+                    throw new Error('Failed to load');
                 }
-            } catch (e) {
-                papers = [];
+            } catch (error) {
+                console.error('GitHub load error:', error);
+                const cached = localStorage.getItem('papers_cache');
+                papers = cached ? JSON.parse(cached) : [];
+                showStatus('Using local cache', true);
+            }
+        }
+
+        async function saveToGitHub() {
+            if (useLocal) {
+                localStorage.setItem('papers_local', JSON.stringify(papers));
+                return;
+            }
+
+            try {
+                const sha = localStorage.getItem('github_sha');
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
+                
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update research papers',
+                        content: btoa(JSON.stringify(papers, null, 2)),
+                        sha: sha,
+                        branch: GITHUB_CONFIG.branch
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('github_sha', data.content.sha);
+                    localStorage.setItem('papers_cache', JSON.stringify(papers));
+                    showStatus('✓ Saved to GitHub');
+                } else {
+                    throw new Error('Save failed');
+                }
+            } catch (error) {
+                console.error('GitHub save error:', error);
+                localStorage.setItem('papers_cache', JSON.stringify(papers));
+                showStatus('Saved locally only', true);
+            }
+        }
+
+        async function loadData() {
+            if (useLocal) {
+                const local = localStorage.getItem('papers_local');
+                papers = local ? JSON.parse(local) : [];
+                showStatus('Using local storage mode');
+            } else {
+                await loadFromGitHub();
             }
             renderTable();
         }
 
-        function saveData() {
-            const encrypted = encode(JSON.stringify(papers));
-            localStorage.setItem(DATA_KEY, encrypted);
-        }
+        function addPaper() {
+            const name = prompt('Paper name:');
+            if (!name) return;
+            const about = prompt('About:');
+            if (!about) return;
+            const link = prompt('Link (URL):');
+            if (!link) return;
 
-        function openModal(id = null) {
-            const modal = document.getElementById('addModal');
-            
-            if (id) {
-                editingId = id;
-                const paper = papers.find(p => p.id === id);
-                document.getElementById('modalTitle').textContent = 'Edit Research Paper';
-                document.getElementById('paperName').value = paper.name;
-                document.getElementById('paperAbout').value = paper.about;
-                document.getElementById('paperLink').value = paper.link;
-            } else {
-                editingId = null;
-                document.getElementById('modalTitle').textContent = 'Add Research Paper';
-                document.getElementById('paperForm').reset();
-            }
-            
-            modal.classList.add('active');
-        }
+            papers.unshift({
+                id: Date.now(),
+                name,
+                about,
+                link,
+                dateAdded: new Date().toISOString()
+            });
 
-        function closeModal() {
-            document.getElementById('addModal').classList.remove('active');
-            document.getElementById('paperForm').reset();
-            editingId = null;
-        }
-
-        function savePaper(event) {
-            event.preventDefault();
-            
-            const paper = {
-                id: editingId || Date.now(),
-                name: document.getElementById('paperName').value,
-                about: document.getElementById('paperAbout').value,
-                link: document.getElementById('paperLink').value,
-                dateAdded: editingId ? papers.find(p => p.id === editingId).dateAdded : new Date().toISOString()
-            };
-
-            if (editingId) {
-                const index = papers.findIndex(p => p.id === editingId);
-                papers[index] = paper;
-            } else {
-                papers.unshift(paper);
-            }
-
-            saveData();
+            saveToGitHub();
             renderTable();
-            closeModal();
+        }
+
+        function editPaper(id) {
+            const paper = papers.find(p => p.id === id);
+            const name = prompt('Paper name:', paper.name);
+            if (name === null) return;
+            const about = prompt('About:', paper.about);
+            if (about === null) return;
+            const link = prompt('Link:', paper.link);
+            if (link === null) return;
+
+            paper.name = name;
+            paper.about = about;
+            paper.link = link;
+
+            saveToGitHub();
+            renderTable();
         }
 
         function deletePaper(id) {
-            if (confirm('Delete this paper?')) {
-                papers = papers.filter(p => p.id !== id);
-                saveData();
-                renderTable();
-            }
+            if (!confirm('Delete this paper?')) return;
+            papers = papers.filter(p => p.id !== id);
+            saveToGitHub();
+            renderTable();
         }
 
         function renderTable(searchTerm = '') {
@@ -578,7 +304,7 @@
             }
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No papers found. Add your first research paper!</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text-light)">No papers found</td></tr>';
                 return;
             }
 
@@ -588,42 +314,26 @@
                     <td>${paper.about}</td>
                     <td class="link-cell" onclick="window.open('${paper.link}', '_blank')">Open ↗</td>
                     <td>
-                        <div class="actions">
-                            <button class="icon-btn" onclick="openModal(${paper.id})">Edit</button>
-                            <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
-                        </div>
+                        <button class="icon-btn" onclick="editPaper(${paper.id})">Edit</button>
+                        <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            renderTable(e.target.value.toLowerCase());
-        });
-
-        document.getElementById('addModal').addEventListener('click', (e) => {
-            if (e.target.id === 'addModal') closeModal();
-        });
-
-        function toggleWidget() {
-            const widget = document.getElementById('newsWidget');
-            widget.classList.toggle('widget-minimized');
+        function exportData() {
+            const json = JSON.stringify(papers, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'research-papers-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            showStatus('✓ Exported');
         }
 
-        // Simulate news feed (static demo)
-        document.getElementById('tagsInput').addEventListener('change', (e) => {
-            const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
-            const newsContent = document.getElementById('newsContent');
-            
-            if (tags.length > 0) {
-                newsContent.innerHTML = tags.map(tag => `
-                    <div class="news-item">
-                        <div class="news-item-title">Latest in ${tag}</div>
-                        <div class="news-item-source">Research Feed</div>
-                        <div class="news-item-desc">Tracking developments in ${tag}. Add papers manually to build your collection.</div>
-                    </div>
-                `).join('');
-            }
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderTable(e.target.value.toLowerCase());
         });
 
         loadData();
