@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Library - Academic Dashboard</title>
+    <title>Research Library - E-Paper</title>
     <style>
         * {
             margin: 0;
@@ -12,257 +12,273 @@
         }
 
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent: #ffffff;
-            --hover-glass: rgba(255, 255, 255, 0.08);
+            --bg: #e8e5d8;
+            --paper: #f5f3eb;
+            --text: #2a2825;
+            --text-light: #6a6865;
+            --border: #c8c5b8;
+            --accent: #4a4845;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --glass: rgba(255, 255, 255, 0.6);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
+            padding: 20px;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+
+        .main-panel {
+            flex: 1;
+            background: var(--paper);
+            border: 2px solid var(--border);
+            box-shadow: 4px 4px 0 var(--shadow);
+            padding: 30px;
         }
 
         header {
-            margin-bottom: 3rem;
-            text-align: center;
+            border-bottom: 3px double var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         h1 {
             font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 300;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
-        .controls {
+        .top-bar {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
             align-items: center;
         }
 
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-        }
-
-        .btn {
-            padding: 0.7rem 1.5rem;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-weight: 300;
-        }
-
-        .btn:hover {
-            background: var(--hover-glass);
-            border-color: var(--accent);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-primary);
-            border-color: var(--accent);
-        }
-
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .search-box {
+        .search-input {
             flex: 1;
-            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            background: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-shadow: inset 2px 2px 0 var(--shadow);
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .search-box input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .search-box input:focus {
+        .search-input:focus {
             outline: none;
             border-color: var(--accent);
         }
 
-        .view-toggle {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
-
-        .filter-bar::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .filter-bar::-webkit-scrollbar-track {
-            background: var(--glass-bg);
-        }
-
-        .filter-bar::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 2px;
-        }
-
-        .filter-chip {
-            padding: 0.5rem 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            font-size: 0.85rem;
+        .btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent);
+            background: var(--paper);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-weight: 300;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .filter-chip:hover,
-        .filter-chip.active {
+        .btn:hover {
             background: var(--accent);
-            color: var(--bg-primary);
-            border-color: var(--accent);
+            color: var(--paper);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--shadow);
         }
 
-        .papers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+        .btn:active {
+            transform: translate(0, 0);
+            box-shadow: 2px 2px 0 var(--shadow);
         }
 
-        .papers-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 2px solid var(--border);
         }
 
-        .paper-card {
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .paper-card:hover {
-            background: var(--hover-glass);
-            transform: translateY(-2px);
-        }
-
-        .paper-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .paper-card:hover::before {
-            opacity: 1;
-        }
-
-        .paper-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 0.8rem;
-        }
-
-        .paper-title {
-            font-size: 1.1rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .paper-meta {
+        th {
+            background: var(--accent);
+            color: var(--paper);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
             font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            border: 2px solid var(--accent);
         }
 
-        .paper-category {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+        td {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
         }
 
-        .paper-actions {
+        tr:nth-child(even) {
+            background: var(--paper);
+        }
+
+        tr:hover {
+            background: #fff8e8;
+        }
+
+        .link-cell {
+            color: #2563eb;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .actions {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 8px;
         }
 
         .icon-btn {
-            padding: 0.4rem 0.8rem;
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            border-radius: 6px;
-            color: var(--text-secondary);
+            padding: 5px 10px;
+            border: 1px solid var(--border);
+            background: white;
             cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-family: inherit;
         }
 
         .icon-btn:hover {
-            color: var(--text-primary);
+            background: var(--accent);
+            color: white;
             border-color: var(--accent);
+        }
+
+        .news-widget {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .widget-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .control-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .tags-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .news-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .news-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.85rem;
+        }
+
+        .news-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .news-item-source {
+            color: var(--text-light);
+            font-size: 0.75rem;
+            margin-bottom: 5px;
+        }
+
+        .news-item-desc {
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .widget-minimized {
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .widget-minimized .news-content,
+        .widget-minimized .tags-input {
+            display: none;
         }
 
         .modal {
@@ -272,10 +288,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            padding: 2rem;
+            padding: 40px;
             overflow-y: auto;
         }
 
@@ -286,64 +301,48 @@
         }
 
         .modal-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 2rem;
+            background: var(--paper);
+            border: 3px solid var(--border);
+            padding: 30px;
             max-width: 600px;
             width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            box-shadow: 8px 8px 0 var(--shadow);
         }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .modal-header h2 {
             font-size: 1.5rem;
-            font-weight: 300;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
+            font-weight: bold;
             font-size: 0.9rem;
-            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group textarea {
             width: 100%;
-            padding: 0.7rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
+            padding: 10px;
+            border: 2px solid var(--border);
+            background: white;
             font-family: inherit;
+            font-size: 0.9rem;
+            box-shadow: inset 2px 2px 0 var(--shadow);
         }
 
         .form-group textarea {
@@ -351,189 +350,199 @@
             min-height: 80px;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent);
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
         }
 
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
+            padding: 60px 20px;
+            color: var(--text-light);
         }
 
-        .empty-state h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .container {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .papers-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
                 flex-direction: column;
-                align-items: stretch;
             }
+            
+            .news-widget {
+                width: 100%;
+                position: relative;
+                top: 0;
+                max-height: 400px;
+            }
+        }
 
-            .search-box {
-                min-width: 100%;
-            }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Research Library</h1>
-            <p class="subtitle">Your Personal Academic Knowledge Base</p>
-        </header>
+        <div class="main-panel">
+            <header>
+                <h1>Research Archive</h1>
+                <p class="subtitle">Personal Knowledge Repository</p>
+            </header>
 
-        <div class="controls">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search papers, authors, keywords...">
+            <div class="top-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search papers...">
+                <button class="btn" onclick="openModal()">+ Add</button>
             </div>
-            <button class="btn btn-primary" onclick="openModal()">+ Add Paper</button>
-            <div class="view-toggle">
-                <button class="btn" onclick="toggleView('grid')" id="gridViewBtn">Grid</button>
-                <button class="btn" onclick="toggleView('list')" id="listViewBtn">List</button>
+
+            <div id="tableContainer">
+                <table id="papersTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%">Name</th>
+                            <th style="width: 45%">About</th>
+                            <th style="width: 15%">Link</th>
+                            <th style="width: 10%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="papersBody"></tbody>
+                </table>
             </div>
         </div>
 
-        <div class="filter-bar" id="filterBar">
-            <div class="filter-chip active" data-category="all">All</div>
+        <div class="news-widget" id="newsWidget">
+            <div class="widget-header">
+                <span class="widget-title">Research Feed</span>
+                <div class="widget-controls">
+                    <button class="control-btn" onclick="toggleWidget()" title="Minimize">_</button>
+                </div>
+            </div>
+            <input type="text" class="tags-input" id="tagsInput" placeholder="Add tags: AI, ML, quantum...">
+            <div class="news-content" id="newsContent">
+                <div class="news-item">
+                    <div class="news-item-title">Getting Started</div>
+                    <div class="news-item-source">System</div>
+                    <div class="news-item-desc">Add research tags above to track latest developments from trusted sources.</div>
+                </div>
+            </div>
         </div>
-
-        <div id="papersContainer" class="papers-grid"></div>
     </div>
 
     <div class="modal" id="addModal">
-        <div class="modal-content glass">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Add Research Paper</h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <form id="paperForm" onsubmit="savePaper(event)">
                 <div class="form-group">
-                    <label>Title *</label>
-                    <input type="text" id="paperTitle" required>
+                    <label>Name</label>
+                    <input type="text" id="paperName" required>
                 </div>
                 <div class="form-group">
-                    <label>Authors</label>
-                    <input type="text" id="paperAuthors" placeholder="Separate with commas">
+                    <label>About</label>
+                    <textarea id="paperAbout" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Year</label>
-                    <input type="number" id="paperYear" min="1900" max="2100">
-                </div>
-                <div class="form-group">
-                    <label>Category *</label>
-                    <select id="paperCategory" required>
-                        <option value="">Select category</option>
-                        <option value="Machine Learning">Machine Learning</option>
-                        <option value="Computer Vision">Computer Vision</option>
-                        <option value="Natural Language Processing">Natural Language Processing</option>
-                        <option value="Robotics">Robotics</option>
-                        <option value="Theory">Theory</option>
-                        <option value="Systems">Systems</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Subcategory</label>
-                    <input type="text" id="paperSubcategory" placeholder="e.g., Deep Learning, CNNs">
-                </div>
-                <div class="form-group">
-                    <label>Link/URL *</label>
+                    <label>Link</label>
                     <input type="url" id="paperLink" placeholder="https://" required>
                 </div>
-                <div class="form-group">
-                    <label>Notes</label>
-                    <textarea id="paperNotes" placeholder="Key insights, methodology, relevance..."></textarea>
-                </div>
-                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <div class="form-actions">
                     <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        const DATA_KEY = 'r3s34rch_d4t4';
         let papers = [];
-        let currentView = 'grid';
-        let currentFilter = 'all';
         let editingId = null;
 
-        // Load data from memory on page load
+        // Simple XOR encryption with obfuscated key
+        function encode(str) {
+            const k = 'R\u200B3\u200Bs\u200B34\u200BRch\u200BK3y\u200B2024'.replace(/\u200B/g, '');
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                result += String.fromCharCode(str.charCodeAt(i) ^ k.charCodeAt(i % k.length));
+            }
+            return btoa(result);
+        }
+
+        function decode(str) {
+            const k = 'R\u200B3\u200Bs\u200B34\u200BRch\u200BK3y\u200B2024'.replace(/\u200B/g, '');
+            let decoded = atob(str);
+            let result = '';
+            for (let i = 0; i < decoded.length; i++) {
+                result += String.fromCharCode(decoded.charCodeAt(i) ^ k.charCodeAt(i % k.length));
+            }
+            return result;
+        }
+
         function loadData() {
-            papers = JSON.parse(localStorage.getItem('researchPapers') || '[]');
-            renderPapers();
-            updateFilterBar();
+            try {
+                const encrypted = localStorage.getItem(DATA_KEY);
+                if (encrypted) {
+                    papers = JSON.parse(decode(encrypted));
+                }
+            } catch (e) {
+                papers = [];
+            }
+            renderTable();
         }
 
-        // Save data to memory
         function saveData() {
-            localStorage.setItem('researchPapers', JSON.stringify(papers));
+            const encrypted = encode(JSON.stringify(papers));
+            localStorage.setItem(DATA_KEY, encrypted);
         }
 
-        // Open modal for adding/editing
         function openModal(id = null) {
             const modal = document.getElementById('addModal');
-            const form = document.getElementById('paperForm');
             
             if (id) {
                 editingId = id;
                 const paper = papers.find(p => p.id === id);
                 document.getElementById('modalTitle').textContent = 'Edit Research Paper';
-                document.getElementById('paperTitle').value = paper.title;
-                document.getElementById('paperAuthors').value = paper.authors;
-                document.getElementById('paperYear').value = paper.year;
-                document.getElementById('paperCategory').value = paper.category;
-                document.getElementById('paperSubcategory').value = paper.subcategory || '';
+                document.getElementById('paperName').value = paper.name;
+                document.getElementById('paperAbout').value = paper.about;
                 document.getElementById('paperLink').value = paper.link;
-                document.getElementById('paperNotes').value = paper.notes || '';
             } else {
                 editingId = null;
                 document.getElementById('modalTitle').textContent = 'Add Research Paper';
-                form.reset();
+                document.getElementById('paperForm').reset();
             }
             
             modal.classList.add('active');
         }
 
-        // Close modal
         function closeModal() {
             document.getElementById('addModal').classList.remove('active');
             document.getElementById('paperForm').reset();
             editingId = null;
         }
 
-        // Save paper
         function savePaper(event) {
             event.preventDefault();
             
             const paper = {
                 id: editingId || Date.now(),
-                title: document.getElementById('paperTitle').value,
-                authors: document.getElementById('paperAuthors').value,
-                year: document.getElementById('paperYear').value,
-                category: document.getElementById('paperCategory').value,
-                subcategory: document.getElementById('paperSubcategory').value,
+                name: document.getElementById('paperName').value,
+                about: document.getElementById('paperAbout').value,
                 link: document.getElementById('paperLink').value,
-                notes: document.getElementById('paperNotes').value,
                 dateAdded: editingId ? papers.find(p => p.id === editingId).dateAdded : new Date().toISOString()
             };
 
@@ -545,128 +554,78 @@
             }
 
             saveData();
-            renderPapers();
-            updateFilterBar();
+            renderTable();
             closeModal();
         }
 
-        // Delete paper
         function deletePaper(id) {
-            if (confirm('Are you sure you want to delete this paper?')) {
+            if (confirm('Delete this paper?')) {
                 papers = papers.filter(p => p.id !== id);
                 saveData();
-                renderPapers();
-                updateFilterBar();
+                renderTable();
             }
         }
 
-        // Toggle view
-        function toggleView(view) {
-            currentView = view;
-            const container = document.getElementById('papersContainer');
-            container.className = view === 'grid' ? 'papers-grid' : 'papers-list';
-            
-            document.getElementById('gridViewBtn').style.background = view === 'grid' ? 'var(--hover-glass)' : '';
-            document.getElementById('listViewBtn').style.background = view === 'list' ? 'var(--hover-glass)' : '';
-        }
-
-        // Filter papers
-        function filterPapers(category) {
-            currentFilter = category;
-            renderPapers();
-            
-            document.querySelectorAll('.filter-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.dataset.category === category);
-            });
-        }
-
-        // Update filter bar
-        function updateFilterBar() {
-            const categories = new Set(papers.map(p => p.category));
-            const filterBar = document.getElementById('filterBar');
-            
-            filterBar.innerHTML = '<div class="filter-chip active" data-category="all" onclick="filterPapers(\'all\')">All</div>';
-            
-            categories.forEach(category => {
-                if (category) {
-                    filterBar.innerHTML += `
-                        <div class="filter-chip" data-category="${category}" onclick="filterPapers('${category}')">
-                            ${category}
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        // Search papers
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            renderPapers(e.target.value.toLowerCase());
-        });
-
-        // Render papers
-        function renderPapers(searchTerm = '') {
-            const container = document.getElementById('papersContainer');
+        function renderTable(searchTerm = '') {
+            const tbody = document.getElementById('papersBody');
             let filtered = papers;
 
-            // Apply category filter
-            if (currentFilter !== 'all') {
-                filtered = filtered.filter(p => p.category === currentFilter);
-            }
-
-            // Apply search filter
             if (searchTerm) {
-                filtered = filtered.filter(p => 
-                    p.title.toLowerCase().includes(searchTerm) ||
-                    p.authors.toLowerCase().includes(searchTerm) ||
-                    p.category.toLowerCase().includes(searchTerm) ||
-                    (p.subcategory && p.subcategory.toLowerCase().includes(searchTerm)) ||
-                    (p.notes && p.notes.toLowerCase().includes(searchTerm))
+                filtered = papers.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.about.toLowerCase().includes(searchTerm)
                 );
             }
 
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <h3>No papers found</h3>
-                        <p>Start building your research library by adding papers</p>
-                    </div>
-                `;
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No papers found. Add your first research paper!</td></tr>';
                 return;
             }
 
-            container.innerHTML = filtered.map(paper => `
-                <div class="paper-card glass">
-                    <div class="paper-header">
-                        <div style="flex: 1;">
-                            <h3 class="paper-title">${paper.title}</h3>
-                            <div class="paper-meta">
-                                ${paper.authors ? `${paper.authors}` : ''}
-                                ${paper.year ? ` · ${paper.year}` : ''}
-                            </div>
-                            <div>
-                                <span class="paper-category">${paper.category}</span>
-                                ${paper.subcategory ? `<span class="paper-category">${paper.subcategory}</span>` : ''}
-                            </div>
-                            ${paper.notes ? `<p style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">${paper.notes.substring(0, 150)}${paper.notes.length > 150 ? '...' : ''}</p>` : ''}
+            tbody.innerHTML = filtered.map(paper => `
+                <tr>
+                    <td><strong>${paper.name}</strong></td>
+                    <td>${paper.about}</td>
+                    <td class="link-cell" onclick="window.open('${paper.link}', '_blank')">Open ↗</td>
+                    <td>
+                        <div class="actions">
+                            <button class="icon-btn" onclick="openModal(${paper.id})">Edit</button>
+                            <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
                         </div>
-                    </div>
-                    <div class="paper-actions">
-                        <button class="icon-btn" onclick="window.open('${paper.link}', '_blank')">Open</button>
-                        <button class="icon-btn" onclick="openModal(${paper.id})">Edit</button>
-                        <button class="icon-btn" onclick="deletePaper(${paper.id})">Delete</button>
-                    </div>
-                </div>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        // Close modal on outside click
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderTable(e.target.value.toLowerCase());
+        });
+
         document.getElementById('addModal').addEventListener('click', (e) => {
-            if (e.target.id === 'addModal') {
-                closeModal();
+            if (e.target.id === 'addModal') closeModal();
+        });
+
+        function toggleWidget() {
+            const widget = document.getElementById('newsWidget');
+            widget.classList.toggle('widget-minimized');
+        }
+
+        // Simulate news feed (static demo)
+        document.getElementById('tagsInput').addEventListener('change', (e) => {
+            const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
+            const newsContent = document.getElementById('newsContent');
+            
+            if (tags.length > 0) {
+                newsContent.innerHTML = tags.map(tag => `
+                    <div class="news-item">
+                        <div class="news-item-title">Latest in ${tag}</div>
+                        <div class="news-item-source">Research Feed</div>
+                        <div class="news-item-desc">Tracking developments in ${tag}. Add papers manually to build your collection.</div>
+                    </div>
+                `).join('');
             }
         });
 
-        // Initialize
         loadData();
     </script>
 </body>
