@@ -1,799 +1,523 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Library - Free Forever DB</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #e8e5d8; --paper: #f5f3eb; --text: #2a2825;
-            --text-light: #6a6865; --border: #c8c5b8; --accent: #4a4845;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
-        body {
-            font-family: 'Courier New', monospace;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
-        }
-        .container { max-width: 1400px; margin: 0 auto; display: flex; gap: 20px; }
-        .main-panel {
-            flex: 1;
-            background: var(--paper);
-            border: 2px solid var(--border);
-            box-shadow: 4px 4px 0 var(--shadow);
-            padding: 30px;
-        }
-        header {
-            border-bottom: 3px double var(--border);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .subtitle {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-        .config-banner {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-        }
-        .config-banner a {
-            color: #2563eb;
-            font-weight: bold;
-        }
-        .top-bar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            background: white;
-            font-family: inherit;
-            font-size: 0.95rem;
-            box-shadow: inset 2px 2px 0 var(--shadow);
-        }
-        .search-input:focus { outline: none; border-color: var(--accent); }
-        .btn {
-            padding: 12px 25px;
-            border: 2px solid var(--accent);
-            background: var(--paper);
-            color: var(--accent);
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn:hover {
-            background: var(--accent);
-            color: var(--paper);
-            transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0 var(--shadow);
-        }
-        .btn:active { transform: translate(0, 0); box-shadow: 2px 2px 0 var(--shadow); }
-        .btn-sm { padding: 8px 15px; font-size: 0.8rem; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border: 2px solid var(--border);
-        }
-        th {
-            background: var(--accent);
-            color: var(--paper);
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            border: 2px solid var(--accent);
-        }
-        td {
-            padding: 12px 15px;
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-        tr:nth-child(even) { background: var(--paper); }
-        tr:hover { background: #fff8e8; }
-        .link-cell {
-            color: #2563eb;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        .actions { display: flex; gap: 8px; }
-        .icon-btn {
-            padding: 5px 10px;
-            border: 1px solid var(--border);
-            background: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-family: inherit;
-        }
-        .icon-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        .news-widget {
-            width: 320px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 20px;
-            max-height: calc(100vh - 40px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .widget-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        .widget-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .control-btn {
-            width: 24px;
-            height: 24px;
-            border: none;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-        .control-btn:hover { background: rgba(0, 0, 0, 0.1); }
-        .tags-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
-        }
-        .news-content {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        .news-item {
-            padding: 12px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.85rem;
-        }
-        .news-item-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--accent);
-        }
-        .widget-minimized { height: 60px; overflow: hidden; }
-        .widget-minimized .news-content,
-        .widget-minimized .tags-input { display: none; }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            padding: 40px;
-            overflow-y: auto;
-        }
-        .modal.active { display: flex; align-items: center; justify-content: center; }
-        .modal-content {
-            background: var(--paper);
-            border: 3px solid var(--border);
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 8px 8px 0 var(--shadow);
-        }
-        .modal-header {
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--border);
-            background: white;
-            font-family: inherit;
-            font-size: 0.9rem;
-            box-shadow: inset 2px 2px 0 var(--shadow);
-        }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            margin-top: 25px;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-light);
-        }
-        .status {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-        .status.success { background: #d4edda; color: #155724; }
-        .status.error { background: #f8d7da; color: #721c24; }
-        .status.info { background: #d1ecf1; color: #0c5460; }
-        @media (max-width: 1024px) {
-            .container { flex-direction: column; }
-            .news-widget { width: 100%; position: relative; top: 0; max-height: 400px; }
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utkrisht · Whiteboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ── reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Kalam', cursive;
+  background: #f0ece3;
+  color: #2c2c2c;
+  min-height: 100vh;
+  /* subtle lined-paper texture */
+  background-image:
+    linear-gradient(#ddd 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-attachment: fixed;
+}
+
+/* ── page wrapper ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 36px 80px;
+}
+
+/* ── top bar ── */
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 2px solid #2c2c2c;
+  padding-bottom: 10px;
+  margin-bottom: 36px;
+}
+.topbar h1 {
+  font-family: 'Caveat', cursive;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.topbar .meta {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* ── section label ── */
+.section-label {
+  font-family: 'Caveat', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 14px;
+}
+
+/* ── whiteboard (front page) ── */
+.whiteboard {
+  background: #fff;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  padding: 32px 36px;
+  margin-bottom: 44px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07), inset 0 0 0 6px #fff;
+  position: relative;
+}
+/* tape corners */
+.whiteboard::before, .whiteboard::after {
+  content: '';
+  position: absolute;
+  width: 44px; height: 16px;
+  background: rgba(255,220,100,0.55);
+  border: 1px solid rgba(200,170,0,0.25);
+  top: -8px;
+}
+.whiteboard::before { left: 40px; transform: rotate(-2deg); }
+.whiteboard::after  { right: 40px; transform: rotate(2deg); }
+
+.wb-title {
+  font-family: 'Caveat', cursive;
+  font-size: 1.65rem;
+  font-weight: 700;
+  border-bottom: 1.5px solid #e0e0e0;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  color: #111;
+}
+
+/* topic grid on whiteboard */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.topic-block {
+  border-left: 3px solid var(--accent, #555);
+  padding: 10px 14px;
+  background: #fafafa;
+  border-radius: 0 4px 4px 0;
+}
+.topic-block .topic-name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent, #333);
+  margin-bottom: 8px;
+}
+.topic-block ul {
+  list-style: none;
+  padding: 0;
+}
+.topic-block ul li {
+  font-size: 0.88rem;
+  color: #555;
+  padding: 2px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  line-height: 1.4;
+}
+.topic-block ul li::before {
+  content: '–';
+  color: #bbb;
+  flex-shrink: 0;
+}
+
+/* ── two-column layout ── */
+.cols {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 32px;
+  margin-bottom: 44px;
+}
+@media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+
+/* ── list panels (research, blog, notes) ── */
+.panel {
+  background: #fffef8;
+  border: 1.5px solid #ddd;
+  border-radius: 4px;
+  padding: 24px 26px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.panel-title {
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.panel-title span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #aaa;
+  font-family: 'Kalam', cursive;
+}
+
+/* entry row */
+.entry {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border-bottom: 1px dotted #e8e8e8;
+}
+.entry:last-child { border-bottom: none; }
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.entry-name {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #222;
+  line-height: 1.35;
+}
+.entry-date {
+  font-size: 0.78rem;
+  color: #bbb;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.entry-sub {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.entry-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-top: 5px;
+  border: 1px solid;
+}
+
+/* tag colors — light & readable */
+.tag-ml      { color: #1a7a5e; background: #e6f5f0; border-color: #b2dfd0; }
+.tag-robotics{ color: #7a3a1a; background: #f5ede6; border-color: #dfc4b2; }
+.tag-physics { color: #6a5a1a; background: #f5f0e0; border-color: #dfd5a8; }
+.tag-cs      { color: #3a1a7a; background: #eee6f5; border-color: #c4b2df; }
+.tag-idea    { color: #777;    background: #f0f0f0; border-color: #ddd;    }
+.tag-done    { color: #4a8a4a; background: #ecf5ec; border-color: #b5d9b5; }
+
+/* progress strip */
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.bar-bg {
+  flex: 1;
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 3px;
+}
+.bar-fill {
+  height: 3px;
+  border-radius: 3px;
+  background: currentColor;
+}
+.bar-pct {
+  font-size: 0.72rem;
+  color: #aaa;
+  width: 28px;
+  text-align: right;
+}
+
+/* ── notes column ── */
+.note-card {
+  background: #fffde8;
+  border: 1px solid #e8e0b5;
+  border-radius: 3px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 1.5;
+  position: relative;
+}
+.note-card .note-date {
+  font-size: 0.72rem;
+  color: #bba;
+  margin-bottom: 5px;
+}
+.note-card .note-title {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+.note-card ul {
+  margin-left: 12px;
+  margin-top: 6px;
+}
+.note-card ul li {
+  font-size: 0.82rem;
+  color: #666;
+  margin-bottom: 2px;
+}
+.note-card ul li::marker { content: '→ '; color: #bba; }
+
+/* ── footer ── */
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #bbb;
+  border-top: 1px dashed #ddd;
+  padding-top: 24px;
+  margin-top: 40px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="main-panel">
-            <header>
-                <h1>Research Archive</h1>
-                <p class="subtitle">Forever Free Global Database</p>
-            </header>
+<div class="page">
 
-            <div id="configBanner" class="config-banner" style="display: none;">
-                ⚙️ <strong>Setup Required:</strong> Add your GitHub Gist ID to enable global sync. 
-                <a href="#" onclick="showSetup(); return false;">Configure Now</a> or use local-only mode.
-                <br><small>Note: Overleaf integration for live sync is not supported publicly; use Gist for backend or manual export to Overleaf project at <a href="https://www.overleaf.com/9839224247hrfvdzhtfcrw#b7d653" target="_blank">edit link</a>.</small>
-            </div>
+  <!-- ────────────────── TOP BAR ────────────────── -->
+  <div class="topbar">
+    <h1>Utkrisht Sharma</h1>
+    <span class="meta">utkrishtsharma93@gmail.com &nbsp;·&nbsp; Feb 2025</span>
+  </div>
 
-            <div id="statusBar"></div>
+  <!-- ────────────────── WHITEBOARD ─────────────── -->
+  <div class="section-label">Front Page — Overview</div>
+  <div class="whiteboard">
+    <div class="wb-title">Research Whiteboard</div>
+    <div class="topic-grid">
 
-            <div class="top-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search papers...">
-                <button class="btn" onclick="openModal()">+ Add</button>
-                <button class="btn btn-sm" onclick="syncNow()">🔄 Sync</button>
-                <button class="btn btn-sm" onclick="exportData()">⬇ Export</button>
-                <button class="btn btn-sm" onclick="exportToOverleaf()">📄 To Overleaf</button>
-            </div>
+      <div class="topic-block" style="--accent:#1a7a5e">
+        <div class="topic-name">ML / AI</div>
+        <ul>
+          <li>Sparse Transformer attention</li>
+          <li>Reinforcement learning (PAC-MDP)</li>
+          <li>NLP — long-context modelling</li>
+          <li>Diffusion models for planning</li>
+        </ul>
+      </div>
 
-            <div id="tableContainer">
-                <table id="papersTable">
-                    <thead>
-                        <tr>
-                            <th style="width: 30%">Name</th>
-                            <th style="width: 45%">About</th>
-                            <th style="width: 15%">Link</th>
-                            <th style="width: 10%">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="papersBody"></tbody>
-                </table>
-            </div>
+      <div class="topic-block" style="--accent:#7a3a1a">
+        <div class="topic-name">Robotics</div>
+        <ul>
+          <li>SLAM with neural maps</li>
+          <li>Manipulation under uncertainty</li>
+          <li>Sensor fusion (IMU + LiDAR)</li>
+        </ul>
+      </div>
+
+      <div class="topic-block" style="--accent:#6a5a1a">
+        <div class="topic-name">Physics / Math</div>
+        <ul>
+          <li>Quantum computing basics</li>
+          <li>Simulation methods</li>
+          <li>Lyapunov stability theory</li>
+        </ul>
+      </div>
+
+      <div class="topic-block" style="--accent:#3a1a7a">
+        <div class="topic-name">CS Theory</div>
+        <ul>
+          <li>Sample complexity bounds</li>
+          <li>PAC learning framework</li>
+          <li>Algorithmic complexity</li>
+        </ul>
+      </div>
+
+      <div class="topic-block" style="--accent:#555">
+        <div class="topic-name">Active Projects</div>
+        <ul>
+          <li>Sparse-Attn benchmark suite</li>
+          <li>Robot nav stack (ROS 2)</li>
+          <li>Personal research dashboard</li>
+          <li>Reading list tracker</li>
+        </ul>
+      </div>
+
+      <div class="topic-block" style="--accent:#888">
+        <div class="topic-name">Experiments</div>
+        <ul>
+          <li>Flash-Attention ablations</li>
+          <li>Head pruning study</li>
+          <li>Offline RL from human feedback</li>
+          <li>Hierarchical tokenisation</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ────────────────── TWO COLUMNS ────────────── -->
+  <div class="cols">
+
+    <!-- LEFT: papers + blogs -->
+    <div>
+
+      <!-- Research Papers -->
+      <div class="panel" style="margin-bottom: 28px;">
+        <div class="panel-title">Research Papers <span>8 total</span></div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Attention Mechanisms in Sparse Transformers</div>
+            <div class="entry-date">Feb 2025</div>
+          </div>
+          <div class="entry-sub">Reducing quadratic complexity while retaining expressive power for long-context tasks.</div>
+          <div class="progress-row" style="color:#1a7a5e">
+            <div class="bar-bg"><div class="bar-fill" style="width:68%"></div></div>
+            <div class="bar-pct">68%</div>
+          </div>
+          <span class="entry-tag tag-ml">ML · In progress</span>
         </div>
 
-        <div class="news-widget" id="newsWidget">
-            <div class="widget-header">
-                <span class="widget-title">Research Feed</span>
-                <div class="widget-controls">
-                    <button class="control-btn" onclick="toggleWidget()" title="Minimize">_</button>
-                </div>
-            </div>
-            <input type="text" class="tags-input" id="tagsInput" placeholder="Add tags: AI, ML, quantum...">
-            <div class="news-content" id="newsContent">
-                <div class="news-item">
-                    <div class="news-item-title">Getting Started</div>
-                    <div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">System</div>
-                    <div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments. For Overleaf sync, export manually to your project.</div>
-                </div>
-            </div>
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">SLAM with Uncertainty-Aware Neural Maps</div>
+            <div class="entry-date">Jan 2025</div>
+          </div>
+          <div class="entry-sub">Bayesian occupancy grids + learned embeddings for robust indoor navigation.</div>
+          <span class="entry-tag tag-done">Published ✓</span>
         </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Sample Complexity of PAC-MDP</div>
+            <div class="entry-date">Mar 2025</div>
+          </div>
+          <div class="entry-sub">Tighter bounds for model-based RL using structural priors on transitions.</div>
+          <div class="progress-row" style="color:#3a1a7a">
+            <div class="bar-bg"><div class="bar-fill" style="width:35%"></div></div>
+            <div class="bar-pct">35%</div>
+          </div>
+          <span class="entry-tag tag-cs">CS Theory · Draft</span>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Diffusion Models for Sequential Decision Making</div>
+            <div class="entry-date">Apr 2025</div>
+          </div>
+          <div class="entry-sub">Survey + experiments on Decision Diffuser and variants.</div>
+          <div class="progress-row" style="color:#1a7a5e">
+            <div class="bar-bg"><div class="bar-fill" style="width:20%"></div></div>
+            <div class="bar-pct">20%</div>
+          </div>
+          <span class="entry-tag tag-ml">ML · Starting</span>
+        </div>
+
+      </div>
+
+      <!-- Blog Posts -->
+      <div class="panel">
+        <div class="panel-title">Blog Posts <span>14 total</span></div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Why Every ML Engineer Should Read Control Theory</div>
+            <div class="entry-date">Jan 2025</div>
+          </div>
+          <div class="entry-sub">Lyapunov functions, stability, and their relevance when training deep nets.</div>
+          <span class="entry-tag tag-ml">Essay · Featured</span>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Building a miniature RL agent in 200 lines of NumPy</div>
+            <div class="entry-date">Dec 2024</div>
+          </div>
+          <div class="entry-sub">Policy gradient from scratch, no frameworks, just arrays and math.</div>
+          <span class="entry-tag tag-ml">Tutorial · Popular</span>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">The LLM Benchmark Crisis Is Understated</div>
+            <div class="entry-date">Feb 2025</div>
+          </div>
+          <div class="entry-sub">Leakage, saturation, and the danger of comparing capabilities on a moving target.</div>
+          <span class="entry-tag tag-idea">Opinion</span>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <div class="entry-name">Grokking the Overleaf + Git Workflow</div>
+            <div class="entry-date">Nov 2024</div>
+          </div>
+          <div class="entry-sub">Managing paper-writing life across Overleaf, GitHub, and a custom dashboard.</div>
+          <span class="entry-tag tag-idea">Workflow</span>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Add/Edit Paper Modal -->
-    <div class="modal" id="addModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Add Research Paper</h2>
-            </div>
-            <form id="paperForm" onsubmit="savePaper(event)">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="paperName" required>
-                </div>
-                <div class="form-group">
-                    <label>About</label>
-                    <textarea id="paperAbout" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Link</label>
-                    <input type="url" id="paperLink" placeholder="https://" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn">Save</button>
-                </div>
-            </form>
-        </div>
+    <!-- RIGHT: progress notes -->
+    <div>
+      <div class="section-label">Progress Notes</div>
+
+      <div class="note-card">
+        <div class="note-date">Feb 22, 2025 &nbsp;·&nbsp; Today</div>
+        <div class="note-title">Week 8 — Sparse Attn. Experiments</div>
+        Ran 3 ablations on Longformer-style windows. Perplexity drops ~4% with adaptive window sizing. Need to recheck the causal mask.
+      </div>
+
+      <div class="note-card">
+        <div class="note-date">Feb 19, 2025 &nbsp;·&nbsp; Advisor sync</div>
+        <div class="note-title">Paper timeline revised</div>
+        Submission pushed to April 15. Focus: tighten related work + fix notation in Section 3.
+        <ul>
+          <li>Revise Theorem 2 proof</li>
+          <li>Email co-author the updated draft</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <div class="note-date">Feb 18, 2025 &nbsp;·&nbsp; Reading log</div>
+        <div class="note-title">Papers read this week</div>
+        <ul>
+          <li>Decision Diffuser — Ajay et al.</li>
+          <li>RLHF Survey — Casper et al.</li>
+          <li>Diffusion-Q — Hansen et al.</li>
+          <li>Offline RL from human feedback</li>
+        </ul>
+      </div>
+
+      <div class="note-card">
+        <div class="note-date">Feb 14, 2025 &nbsp;·&nbsp; Idea</div>
+        <div class="note-title">Hierarchical tokenisation ≈ program synthesis?</div>
+        Byte-pair merging might implicitly learn compositional rules. Worth formalising as a short note.
+      </div>
+
+      <div class="note-card">
+        <div class="note-date">Feb 10, 2025 &nbsp;·&nbsp; Setup</div>
+        <div class="note-title">Dashboard + Overleaf workflow live</div>
+        Syncing research DB via GitHub Gist. Overleaf export works manually for now.
+      </div>
+
     </div>
+  </div>
 
-    <!-- Setup Modal -->
-    <div class="modal" id="setupModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Database Setup</h2>
-            </div>
-            <div style="margin-bottom: 20px; font-size: 0.9rem; line-height: 1.6;">
-                <p style="margin-bottom: 10px;"><strong>Option 1: GitHub Gist (Free Forever)</strong></p>
-                <ol style="margin-left: 20px; margin-bottom: 15px;">
-                    <li>Go to <a href="https://gist.github.com" target="_blank">gist.github.com</a></li>
-                    <li>Create a new gist with filename: <code>research.json</code></li>
-                    <li>Content: <code>[]</code></li>
-                    <li>Copy the Gist ID from URL (e.g., abc123def456)</li>
-                    <li>Optional: Create token at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> with "gist" scope</li>
-                </ol>
-                <p style="margin-bottom: 10px;"><strong>Overleaf Note:</strong> For your project (<a href="https://www.overleaf.com/read/kpwbbhzjngnj#3cbd88" target="_blank">view</a> / <a href="https://www.overleaf.com/9839224247hrfvdzhtfcrw#b7d653" target="_blank">edit</a>), export JSON below and paste into a .tex file as raw text or use as bibliography. Live sync requires Overleaf API access (contact support).</p>
-            </div>
-            <div class="form-group">
-                <label>Gist ID (Required)</label>
-                <input type="text" id="setupGistId" placeholder="abc123def456">
-            </div>
-            <div class="form-group">
-                <label>GitHub Token (Optional - for write access)</label>
-                <input type="text" id="setupToken" placeholder="ghp_yourtoken (leave empty for read-only)">
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn" onclick="closeSetup()">Cancel</button>
-                <button type="button" class="btn" onclick="saveSetup()">Save Config</button>
-            </div>
-        </div>
-    </div>
+  <!-- ────────────────── FOOTER ──────────────────── -->
+  <footer>
+    Utkrisht Sharma &nbsp;·&nbsp; utkrishtsharma93@gmail.com &nbsp;·&nbsp;
+    <a href="https://www.overleaf.com/9839224247hrfvdzhtfcrw#b7d653" style="color:#aaa">Overleaf ↗</a>
+  </footer>
 
-    <script>
-        /**
-         * Global configuration for database connection
-         * Uses GitHub Gist as free forever database (Overleaf not supported for live DB)
-         */
-        const CONFIG_KEY = 'db_config_v1';
-        let papers = [];
-        let editingId = null;
-        let config = null;
-
-        /**
-         * Load configuration from localStorage
-         */
-        function loadConfig() {
-            try {
-                const stored = localStorage.getItem(CONFIG_KEY);
-                config = stored ? JSON.parse(stored) : null;
-                
-                if (!config || !config.gistId) {
-                    document.getElementById('configBanner').style.display = 'block';
-                }
-            } catch (e) {
-                console.error('Config load error:', e);
-                config = null;
-            }
-        }
-
-        /**
-         * Show status message to user
-         */
-        function showStatus(message, type = 'info') {
-            const statusBar = document.getElementById('statusBar');
-            statusBar.className = `status ${type}`;
-            statusBar.textContent = message;
-            statusBar.style.display = 'block';
-            setTimeout(() => {
-                statusBar.style.display = 'none';
-            }, 4000);
-        }
-
-        /**
-         * Load data from GitHub Gist with fallback to localStorage
-         */
-        async function loadData() {
-            // Try loading from cache first for instant display
-            try {
-                const cached = localStorage.getItem('papers_cache');
-                if (cached) {
-                    papers = JSON.parse(cached);
-                    renderTable();
-                }
-            } catch (e) {
-                console.error('Cache load error:', e);
-            }
-
-            // If configured, sync with Gist
-            if (config && config.gistId) {
-                await syncFromGist();
-            } else {
-                // Local-only mode
-                try {
-                    const local = localStorage.getItem('papers_local');
-                    papers = local ? JSON.parse(local) : [];
-                    renderTable();
-                } catch (e) {
-                    papers = [];
-                    renderTable();
-                }
-            }
-        }
-
-        /**
-         * Sync data from GitHub Gist
-         */
-        async function syncFromGist() {
-            try {
-                const url = `https://api.github.com/gists/${config.gistId}`;
-                const headers = { 'Accept': 'application/vnd.github.v3+json' };
-                
-                if (config.token) {
-                    headers['Authorization'] = `token ${config.token}`;
-                }
-
-                const response = await fetch(url, { headers });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-                const files = Object.values(data.files);
-                
-                if (files.length > 0) {
-                    const content = files[0].content;
-                    papers = JSON.parse(content);
-                    
-                    // Update cache
-                    localStorage.setItem('papers_cache', JSON.stringify(papers));
-                    
-                    renderTable();
-                    showStatus('✓ Synced from cloud', 'success');
-                }
-            } catch (error) {
-                console.error('Gist sync error:', error);
-                showStatus('Using local cache', 'error');
-            }
-        }
-
-        /**
-         * Save data to GitHub Gist
-         */
-        async function saveToGist() {
-            if (!config || !config.gistId || !config.token) {
-                // Read-only or no config
-                localStorage.setItem('papers_cache', JSON.stringify(papers));
-                localStorage.setItem('papers_local', JSON.stringify(papers));
-                return;
-            }
-
-            try {
-                const url = `https://api.github.com/gists/${config.gistId}`;
-                const response = await fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                        'Authorization': `token ${config.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        files: {
-                            'research.json': {
-                                content: JSON.stringify(papers, null, 2)
-                            }
-                        }
-                    })
-                });
-
-                if (response.ok) {
-                    localStorage.setItem('papers_cache', JSON.stringify(papers));
-                    showStatus('✓ Saved to cloud', 'success');
-                } else {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-            } catch (error) {
-                console.error('Gist save error:', error);
-                localStorage.setItem('papers_cache', JSON.stringify(papers));
-                localStorage.setItem('papers_local', JSON.stringify(papers));
-                showStatus('Saved locally only', 'error');
-            }
-        }
-
-        /**
-         * Export to Overleaf (creates new project with JSON as snippet)
-         */
-        function exportToOverleaf() {
-            const latexContent = `\\documentclass{article}
-\\usepackage[margin=1in]{geometry}
-\\title{Research Topics}
-\\author{Utkrisht Sharma \\texttt{${'utkrishtsharma93@gmail.com'} }}
-\\date{\\today}
-\\begin{document}
-\\maketitle
-
-\\section{Database Export}
-\\begin{verbatim}
-${JSON.stringify(papers, null, 2)}
-\\end{verbatim}
-
-\\end{document}`;
-
-            const encodedSnip = encodeURIComponent(latexContent);
-            const overleafUrl = `https://www.overleaf.com/docs?encoded_snip=${encodedSnip}&visual_editor=true`;
-            window.open(overleafUrl, '_blank');
-            showStatus('Opened in Overleaf for manual merge', 'info');
-        }
-
-        /**
-         * Manual sync trigger
-         */
-        async function syncNow() {
-            showStatus('Syncing...', 'info');
-            await loadData();
-        }
-
-        /**
-         * Open paper modal for add/edit
-         */
-        function openModal(id = null) {
-            const modal = document.getElementById('addModal');
-            
-            if (id) {
-                editingId = id;
-                const paper = papers.find(p => p.id === id);
-                document.getElementById('modalTitle').textContent = 'Edit Research Paper';
-                document.getElementById('paperName').value = paper.name;
-                document.getElementById('paperAbout').value = paper.about;
-                document.getElementById('paperLink').value = paper.link;
-            } else {
-                editingId = null;
-                document.getElementById('modalTitle').textContent = 'Add Research Paper';
-                document.getElementById('paperForm').reset();
-            }
-            
-            modal.classList.add('active');
-        }
-
-        /**
-         * Close paper modal
-         */
-        function closeModal() {
-            document.getElementById('addModal').classList.remove('active');
-            document.getElementById('paperForm').reset();
-            editingId = null;
-        }
-
-        /**
-         * Save paper with error handling
-         */
-        async function savePaper(event) {
-            event.preventDefault();
-            
-            const paper = {
-                id: editingId || Date.now(),
-                name: document.getElementById('paperName').value,
-                about: document.getElementById('paperAbout').value,
-                link: document.getElementById('paperLink').value,
-                dateAdded: editingId ? 
-                    papers.find(p => p.id === editingId).dateAdded : 
-                    new Date().toISOString()
-            };
-
-            if (editingId) {
-                const index = papers.findIndex(p => p.id === editingId);
-                papers[index] = paper;
-            } else {
-                papers.unshift(paper);
-            }
-
-            await saveToGist();
-            renderTable();
-            closeModal();
-        }
-
-        /**
-         * Delete paper with confirmation
-         */
-        async function deletePaper(id) {
-            if (!confirm('Delete this paper?')) return;
-            
-            papers = papers.filter(p => p.id !== id);
-            await saveToGist();
-            renderTable();
-        }
-
-        /**
-         * Render papers table with search functionality
-         */
-        function renderTable(searchTerm = '') {
-            const tbody = document.getElementById('papersBody');
-            let filtered = papers;
-
-            if (searchTerm) {
-                const term = searchTerm.toLowerCase();
-                filtered = papers.filter(p => 
-                    p.name.toLowerCase().includes(term) ||
-                    p.about.toLowerCase().includes(term)
-                );
-            }
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No papers found. Add your first research paper!</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = filtered.map(paper => `
-                <tr>
-                    <td><strong>${escapeHtml(paper.name)}</strong></td>
-                    <td>${escapeHtml(paper.about)}</td>
-                    <td class="link-cell" onclick="window.open('${escapeHtml(paper.link)}', '_blank')">Open ↗</td>
-                    <td>
-                        <div class="actions">
-                            <button class="icon-btn" onclick="openModal(${paper.id})">Edit</button>
-                            <button class="icon-btn" onclick="deletePaper(${paper.id})">Del</button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        /**
-         * Escape HTML to prevent XSS
-         */
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        /**
-         * Export data as JSON file
-         */
-        function exportData() {
-            const json = JSON.stringify(papers, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `research-papers-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showStatus('✓ Exported successfully', 'success');
-        }
-
-        /**
-         * Show setup modal
-         */
-        function showSetup() {
-            document.getElementById('setupModal').classList.add('active');
-            if (config) {
-                document.getElementById('setupGistId').value = config.gistId || '';
-                document.getElementById('setupToken').value = config.token || '';
-            }
-        }
-
-        /**
-         * Close setup modal
-         */
-        function closeSetup() {
-            document.getElementById('setupModal').classList.remove('active');
-        }
-
-        /**
-         * Save setup configuration
-         */
-        function saveSetup() {
-            const gistId = document.getElementById('setupGistId').value.trim();
-            const token = document.getElementById('setupToken').value.trim();
-
-            if (!gistId) {
-                alert('Gist ID is required');
-                return;
-            }
-
-            config = { gistId, token: token || null };
-            localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-            
-            document.getElementById('configBanner').style.display = 'none';
-            closeSetup();
-            showStatus('✓ Configuration saved', 'success');
-            
-            // Sync immediately
-            syncNow();
-        }
-
-        /**
-         * Toggle news widget visibility
-         */
-        function toggleWidget() {
-            document.getElementById('newsWidget').classList.toggle('widget-minimized');
-        }
-
-        // Event listeners
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            renderTable(e.target.value);
-        });
-
-        document.getElementById('addModal').addEventListener('click', (e) => {
-            if (e.target.id === 'addModal') closeModal();
-        });
-
-        document.getElementById('setupModal').addEventListener('click', (e) => {
-            if (e.target.id === 'setupModal') closeSetup();
-        });
-
-        document.getElementById('tagsInput').addEventListener('input', (e) => {
-            const tags = e.target.value.split(',').map(t => t.trim()).filter(t => t);
-            const newsContent = document.getElementById('newsContent');
-            
-            if (tags.length > 0) {
-                newsContent.innerHTML = tags.map(tag => `
-                    <div class="news-item">
-                        <div class="news-item-title">Latest in ${escapeHtml(tag)}</div>
-                        <div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">Research Feed</div>
-                        <div style="color: var(--text); line-height: 1.4;">Tracking developments in ${escapeHtml(tag)}.</div>
-                    </div>
-                `).join('');
-            } else {
-                newsContent.innerHTML = '<div class="news-item"><div class="news-item-title">Getting Started</div><div style="color: var(--text-light); font-size: 0.75rem; margin-bottom: 5px;">System</div><div style="color: var(--text); line-height: 1.4;">Add research tags to track latest developments.</div></div>';
-            }
-        });
-
-        // Initialize application
-        loadConfig();
-        loadData();
-    </script>
+</div>
 </body>
 </html>
